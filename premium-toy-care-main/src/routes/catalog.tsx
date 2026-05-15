@@ -29,6 +29,36 @@ const image = (file: string) => {
   return catalogPng[`../assets/catalog/${file}`];
 };
 
+type DiyItem = { name: string; img: string };
+
+const diyItems: DiyItem[] = [
+  { name: "DC Motors",              img: image("diy_dc_motors.jpg") },
+  { name: "Orange Propellers",      img: image("diy_orange_props.jpg") },
+  { name: "Red Propellers",         img: image("diy_red_props.jpg") },
+  { name: "Suction Cups",           img: image("diy_suction_cups.jpg") },
+  { name: "Stepper Motors",         img: image("diy_stepper_motors.jpg") },
+  { name: "LED Array",              img: image("diy_led_array.jpg") },
+  { name: "Screws & Bolts",         img: image("diy_screws_bolts.jpg") },
+  { name: "Wire Coil",              img: image("diy_wire_coil.jpg") },
+  { name: "O-Ring Belt",            img: image("diy_o_ring_belt.jpg") },
+  { name: "Push Switches",          img: image("diy_push_switches.jpg") },
+  { name: "Screwdrivers",           img: image("diy_screwdrivers.jpg") },
+  { name: "Alligator Clips",        img: image("diy_alligator_clips.jpg") },
+  { name: "Breadboard",             img: image("diy_breadboard.jpg") },
+  { name: "Jumper Wires",           img: image("diy_jumper_wires.jpg") },
+  { name: "9V Battery",             img: image("diy_9v_battery.jpg") },
+  { name: "Battery Holder",         img: image("diy_battery_holder.jpg") },
+  { name: "18650 Li-ion Cells",     img: image("diy_18650_cells.jpg") },
+  { name: "Popsicle Sticks",        img: image("diy_popsicle_sticks.jpg") },
+  { name: "Rubber Bands",           img: image("diy_rubber_bands.jpg") },
+  { name: "Caster Wheels",          img: image("diy_caster_wheels.jpg") },
+  { name: "Resistors",              img: image("diy_resistors.jpg") },
+  { name: "Capacitors & Transistors", img: image("diy_capacitors.jpg") },
+  { name: "Solar Panel",            img: image("diy_solar_panel.jpg") },
+  { name: "Robot Chassis",          img: image("diy_robot_chassis.jpg") },
+  { name: "Large Drive Wheels",     img: image("diy_large_wheels.jpg") },
+];
+
 const products: Product[] = [
   // Motherboards
   { name: "Big Motherboard", category: "motherboard", img: image("big_mb1.jpg") },
@@ -332,7 +362,57 @@ function Catalog() {
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12">No parts match your search.</p>
           )}
+        </div>
 
+        {/* ── DIY Projects Section ───────────────────────────── */}
+        <div className="mt-24 border-t border-border pt-20 bg-surface/20">
+          <div className="container mx-auto px-4">
+            <Reveal>
+              <div className="text-center max-w-2xl mx-auto mb-12">
+                <div className="text-xs uppercase tracking-[0.2em] text-brand font-semibold mb-4">Build &amp; Create</div>
+                <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold">
+                  DIY <span className="text-gradient-brand">Projects</span> Kit
+                </h2>
+                <p className="mt-4 text-muted-foreground">
+                  Everything you need to build your own robots, vehicles, and electronics projects — available individually.
+                </p>
+              </div>
+            </Reveal>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {diyItems.map((item, i) => (
+                <div
+                  key={item.name}
+                  className="group flex flex-col rounded-2xl border border-border bg-gradient-card p-3 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 animate-fade-in"
+                  style={{ animationDelay: `${(i % 10) * 50}ms` }}
+                >
+                  <div className="aspect-square overflow-hidden rounded-xl bg-surface-elevated">
+                    <img
+                      src={item.img}
+                      alt={item.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex-1 px-1 pt-2 pb-1">
+                    <h3 className="text-xs font-semibold leading-tight">{item.name}</h3>
+                    <div className="mt-0.5 text-[10px] font-medium text-brand">Available</div>
+                  </div>
+                  <a
+                    href={`https://wa.me/917903913346?text=I%20need%20a%20DIY%20component%3A%20${encodeURIComponent(item.name)}`}
+                    target="_blank"
+                    rel="noopener"
+                    className="mt-2 inline-flex items-center justify-center gap-1 rounded-lg bg-gradient-brand px-2 py-1.5 text-[10px] font-semibold text-brand-foreground transition-transform hover:scale-[1.02]"
+                  >
+                    <MessageCircle className="h-3 w-3" /> Enquire
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="container mx-auto px-4">
           <RequestPartForm />
         </div>
       </main>
