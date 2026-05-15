@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { Search, MessageCircle } from "lucide-react";
+import { Search, MessageCircle, PackageSearch, Send, CheckCircle2 } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
@@ -122,6 +122,109 @@ const categories = [
   { id: "wiring", label: "Wiring" },
 ];
 
+function RequestPartForm() {
+  const [form, setForm] = useState({ name: "", phone: "", model: "", part: "" });
+  const [sent, setSent] = useState(false);
+
+  const set = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const msg = [
+      `Hi MyToysCare! I can't find a part I need.`,
+      `Name: ${form.name}`,
+      form.phone ? `My WhatsApp: ${form.phone}` : "",
+      form.model ? `Toy Model: ${form.model}` : "",
+      `Part needed: ${form.part}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+    window.open(`https://wa.me/917903913346?text=${encodeURIComponent(msg)}`, "_blank");
+    setSent(true);
+  };
+
+  return (
+    <Reveal>
+      <div className="mt-20 max-w-xl mx-auto rounded-2xl border border-brand/30 bg-gradient-card shadow-card p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-brand shadow-glow">
+            <PackageSearch className="h-5 w-5 text-brand-foreground" />
+          </div>
+          <div>
+            <h2 className="font-display text-lg font-bold">Can't find your part?</h2>
+            <p className="text-xs text-muted-foreground">Tell us what you need — we'll source it for you.</p>
+          </div>
+        </div>
+
+        {sent ? (
+          <div className="flex flex-col items-center gap-3 py-6 text-center">
+            <CheckCircle2 className="h-12 w-12 text-brand" />
+            <p className="font-semibold text-lg">Request sent on WhatsApp!</p>
+            <p className="text-sm text-muted-foreground">We'll get back to you shortly with availability and pricing.</p>
+            <button
+              onClick={() => { setSent(false); setForm({ name: "", phone: "", model: "", part: "" }); }}
+              className="mt-2 text-xs text-brand underline underline-offset-2"
+            >
+              Submit another request
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-muted-foreground">Your Name *</label>
+                <input
+                  required
+                  value={form.name}
+                  onChange={set("name")}
+                  placeholder="Ravi Kumar"
+                  className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-muted-foreground">WhatsApp Number</label>
+                <input
+                  value={form.phone}
+                  onChange={set("phone")}
+                  placeholder="+91 98765 43210"
+                  className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-medium text-muted-foreground">Toy Model / Brand (optional)</label>
+              <input
+                value={form.model}
+                onChange={set("model")}
+                placeholder="e.g. BMW X5 ride-on, Lamborghini 12V"
+                className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label className="text-xs font-medium text-muted-foreground">Part You Need *</label>
+              <textarea
+                required
+                rows={3}
+                value={form.part}
+                onChange={set("part")}
+                placeholder="e.g. 12V motherboard for remote-controlled Jeep, steering motor for bike..."
+                className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand resize-none"
+              />
+            </div>
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-glow hover:scale-[1.02] transition-transform"
+            >
+              <Send className="h-4 w-4" /> Send Request on WhatsApp
+            </button>
+          </form>
+        )}
+      </div>
+    </Reveal>
+  );
+}
+
 function Catalog() {
   const [active, setActive] = useState("all");
   const [query, setQuery] = useState("");
@@ -218,6 +321,8 @@ function Catalog() {
           {filtered.length === 0 && (
             <p className="text-center text-muted-foreground py-12">No parts match your search.</p>
           )}
+
+          <RequestPartForm />
         </div>
       </main>
       <Footer />
