@@ -20,10 +20,17 @@ export const Route = createFileRoute("/catalog")({
 
 type Product = { name: string; category: string; img: string };
 
-const catalogImages = import.meta.glob("../assets/catalog/*.jpg", { eager: true, import: "default" }) as Record<string, string>;
-const image = (file: string) => catalogImages[`../assets/catalog/${file}`];
+const catalogJpg = import.meta.glob("../assets/catalog/*.jpg", { eager: true, import: "default" }) as Record<string, string>;
+const catalogPng = import.meta.glob("../assets/catalog/*.png", { eager: true, import: "default" }) as Record<string, string>;
+
+const image = (file: string) => {
+  const jpg = catalogJpg[`../assets/catalog/${file}`];
+  if (jpg) return jpg;
+  return catalogPng[`../assets/catalog/${file}`];
+};
 
 const products: Product[] = [
+  // Motherboards
   { name: "Big Motherboard", category: "motherboard", img: image("big_mb1.jpg") },
   { name: "Big Motherboard (Variant)", category: "motherboard", img: image("bigmb_3.jpg") },
   { name: "Small Motherboard", category: "motherboard", img: image("small_mb.jpg") },
@@ -34,38 +41,85 @@ const products: Product[] = [
   { name: "Small MB + Remote", category: "motherboard", img: image("smallmb_remote2.jpg") },
   { name: "Multifunctional Board", category: "motherboard", img: image("multifunctional_board.jpg") },
   { name: "Multifunctional Board V2", category: "motherboard", img: image("multifunctional_board2.jpg") },
+  { name: "Hoverboard Motherboard", category: "motherboard", img: image("hoverboard_motherboard.png") },
+  { name: "Controller Box", category: "motherboard", img: image("gray_mb_box.png") },
+  { name: "Dashboard Panel", category: "motherboard", img: image("dashboard_panel.png") },
+  { name: "Speedometer Dashboard", category: "motherboard", img: image("speedometer_dashboard.png") },
+  // Remotes
   { name: "Remote Controller", category: "remote", img: image("remote1.jpg") },
   { name: "Remote Controller V2", category: "remote", img: image("remote2.jpg") },
   { name: "Remote Controller 7", category: "remote", img: image("remote_7.jpg") },
   { name: "Multifunctional Remote", category: "remote", img: image("multifunctional_remote.jpg") },
-  { name: "Hand Accelerator", category: "bike", img: image("hand_accelarator.jpg") },
-  { name: "Accelerator Paddle", category: "bike", img: image("accelerator_paddle.jpg") },
+  { name: "JR Receiver & Transmitter", category: "remote", img: image("jr_receiver_transmitter.png") },
+  { name: "12V 7-Pin Remote Set", category: "remote", img: image("remote_7pin_set.png") },
+  { name: "Honghui Remote", category: "remote", img: image("honghui_remote.png") },
+  { name: "Remote & Receiver Set", category: "remote", img: image("small_remote_set.png") },
+  // Controllers
+  { name: "HCD Motor Controller", category: "controller", img: image("hcd_controller.png") },
+  { name: "JR1721PWM Controller", category: "controller", img: image("jr1721pwm_controller.png") },
+  { name: "Electric Bike Controller", category: "controller", img: image("electric_bike_controller.png") },
+  { name: "Scooter Motor Controller", category: "controller", img: image("scooter_motor_controller.png") },
+  { name: "Motor Controller 24V", category: "controller", img: image("motor_controller_24v.png") },
+  // Gearbox / Steering
   { name: "Steering Assembly", category: "gearbox", img: image("stearing1.jpg") },
   { name: "Steering Motor", category: "gearbox", img: image("stearing_motor.jpg") },
   { name: "Steering Motor V3", category: "gearbox", img: image("stearing_motor3.jpg") },
+  { name: "Gearbox Motor 12V", category: "gearbox", img: image("gearbox_motor_12v.png") },
+  { name: "Gear Shift Knob", category: "gearbox", img: image("gear_shift_knob.png") },
+  // Accelerators / Bike
+  { name: "Hand Accelerator", category: "bike", img: image("hand_accelarator.jpg") },
+  { name: "Accelerator Paddle", category: "bike", img: image("accelerator_paddle.jpg") },
+  { name: "Bike Hand Accelerator", category: "bike", img: image("bike_hand_accelerator.png") },
+  { name: "Carburetor", category: "bike", img: image("carburetor.png") },
+  // Music Boards
   { name: "Music Board", category: "music", img: image("music_board.jpg") },
   { name: "Music Board (Black)", category: "music", img: image("music_black.jpg") },
   { name: "Round Music Board", category: "music", img: image("roundmusic_3.jpg") },
   { name: "Round Music Board V5", category: "music", img: image("roundmusic_board5.jpg") },
+  { name: "LED Music Board", category: "music", img: image("music_board_led.png") },
+  { name: "Round Music Board USB", category: "music", img: image("round_music_usb.png") },
+  { name: "Music Control Panel", category: "music", img: image("music_control_panel.png") },
+  // Chargers
   { name: "Big Charging Circuit", category: "charger", img: image("bigcharging_circuit.jpg") },
   { name: "Small Charging Circuit", category: "charger", img: image("smallcharging_circuit.jpg") },
   { name: "12V Charger", category: "charger", img: image("12v_charger.jpg") },
+  { name: "Battery Charger", category: "charger", img: image("battery_charger.png") },
+  { name: "Petrol Bike Charger", category: "charger", img: image("petrol_bike_charger.png") },
+  { name: "Dirt Bike Charger", category: "charger", img: image("dirt_bike_charger.png") },
+  { name: "Scooter Charger Adapter", category: "charger", img: image("scooter_charger_adapter.png") },
+  // Batteries
+  { name: "Battery Pack", category: "battery", img: image("battery_pack.png") },
+  { name: "Battery Clips", category: "battery", img: image("battery_clips.png") },
+  { name: "Panja Set", category: "battery", img: image("panja_set.png") },
+  { name: "20A Fuse", category: "battery", img: image("fuse_20a.png") },
+  // Speakers
   { name: "Speaker", category: "speaker", img: image("speaker.jpg") },
   { name: "Speaker V2", category: "speaker", img: image("speaker_2.jpg") },
   { name: "Big Speaker", category: "speaker", img: image("big_speaker.jpg") },
+  // Switches & Keys
   { name: "Key Set", category: "switch", img: image("key_set1.jpg") },
+  { name: "Power Button", category: "switch", img: image("power_button.png") },
+  { name: "Direction Switch", category: "switch", img: image("direction_switch.png") },
+  { name: "Round Rocker Switch", category: "switch", img: image("round_rocker_switch.png") },
+  { name: "BMW Model Switch", category: "switch", img: image("bmw_model_switch.png") },
+  // Wiring
+  { name: "Normal Wiring Set", category: "wiring", img: image("wiring_set.png") },
+  { name: "Multi Wiring Set", category: "wiring", img: image("multi_wiring_set.png") },
 ];
 
 const categories = [
   { id: "all", label: "All" },
   { id: "motherboard", label: "Motherboards" },
   { id: "remote", label: "Remotes" },
-  { id: "bike", label: "Accelerators" },
+  { id: "controller", label: "Controllers" },
   { id: "gearbox", label: "Steering & Motor" },
-  { id: "music", label: "Music Board" },
+  { id: "bike", label: "Accelerators" },
+  { id: "music", label: "Music Boards" },
   { id: "charger", label: "Chargers" },
+  { id: "battery", label: "Batteries & Fuses" },
   { id: "speaker", label: "Speakers" },
   { id: "switch", label: "Keys & Switches" },
+  { id: "wiring", label: "Wiring" },
 ];
 
 function Catalog() {
@@ -81,6 +135,14 @@ function Catalog() {
       ),
     [active, query],
   );
+
+  const counts = useMemo(() => {
+    const map: Record<string, number> = { all: products.length };
+    for (const p of products) {
+      map[p.category] = (map[p.category] ?? 0) + 1;
+    }
+    return map;
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -112,13 +174,18 @@ function Catalog() {
               <button
                 key={c.id}
                 onClick={() => setActive(c.id)}
-                className={`px-4 py-2 text-sm font-medium rounded-xl border transition ${
+                className={`px-4 py-2 text-sm font-medium rounded-xl border transition flex items-center gap-1.5 ${
                   active === c.id
                     ? "bg-gradient-brand text-brand-foreground border-transparent shadow-glow"
                     : "border-border bg-surface-elevated text-muted-foreground hover:text-brand hover:border-brand/40"
                 }`}
               >
                 {c.label}
+                <span className={`text-[10px] font-bold rounded-full px-1.5 py-0.5 ${
+                  active === c.id ? "bg-white/20" : "bg-surface text-brand/70"
+                }`}>
+                  {counts[c.id] ?? 0}
+                </span>
               </button>
             ))}
           </div>
