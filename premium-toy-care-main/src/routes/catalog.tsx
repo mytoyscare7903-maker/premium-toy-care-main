@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, MessageCircle, PackageSearch, Send, CheckCircle2 } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
@@ -146,7 +146,7 @@ function RequestPartForm() {
 
   return (
     <Reveal>
-      <div className="mt-20 max-w-xl mx-auto rounded-2xl border border-brand/30 bg-gradient-card shadow-card p-8">
+      <div id="request-part" className="mt-20 max-w-xl mx-auto rounded-2xl border border-brand/30 bg-gradient-card shadow-card p-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-brand shadow-glow">
             <PackageSearch className="h-5 w-5 text-brand-foreground" />
@@ -228,6 +228,17 @@ function RequestPartForm() {
 function Catalog() {
   const [active, setActive] = useState("all");
   const [query, setQuery] = useState("");
+  const [showFloater, setShowFloater] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setShowFloater(window.scrollY > 320);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToForm = () => {
+    document.getElementById("request-part")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   const filtered = useMemo(
     () =>
@@ -327,6 +338,17 @@ function Catalog() {
       </main>
       <Footer />
       <WhatsAppFloat />
+
+      <button
+        onClick={scrollToForm}
+        aria-label="Can't find your part?"
+        className={`fixed bottom-24 right-5 z-40 flex items-center gap-2 rounded-full border border-brand/40 bg-surface-elevated px-4 py-2.5 text-xs font-semibold text-brand shadow-card backdrop-blur transition-all duration-300 hover:bg-brand hover:text-brand-foreground hover:border-transparent hover:shadow-glow ${
+          showFloater ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 pointer-events-none"
+        }`}
+      >
+        <PackageSearch className="h-4 w-4 shrink-0" />
+        Can't find your part?
+      </button>
     </div>
   );
 }
