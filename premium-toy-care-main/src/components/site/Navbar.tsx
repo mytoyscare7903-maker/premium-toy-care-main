@@ -8,6 +8,7 @@ const links = [
   { to: "/", label: "About", hash: "#about" },
   { to: "/", label: "Services", hash: "#services" },
   { to: "/catalog", label: "Spare Parts" },
+  { to: "/catalog", label: "DIY Projects", hash: "#diy-projects" },
   { to: "/", label: "Rent", hash: "#rent" },
   { to: "/", label: "FAQ", hash: "#faq" },
   { to: "/", label: "Contact", hash: "#contact" },
@@ -53,7 +54,7 @@ export function Navbar() {
           <ul className="hidden lg:flex items-center gap-1">
             {links.map((l) => (
               <li key={l.label}>
-                {l.hash && location.pathname === "/" ? (
+                {l.hash && location.pathname === l.to ? (
                   <a
                     href={l.hash}
                     className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-brand transition-colors rounded-lg hover:bg-surface-elevated"
@@ -97,7 +98,7 @@ export function Navbar() {
               {links.map((l) => (
                 <li key={l.label}>
                   <a
-                    href={l.to === "/catalog" ? "/catalog" : l.hash}
+                    href={l.hash ? `${l.to}${l.hash}` : l.to}
                     onClick={() => setOpen(false)}
                     className="block px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-brand hover:bg-surface-elevated rounded-lg"
                   >

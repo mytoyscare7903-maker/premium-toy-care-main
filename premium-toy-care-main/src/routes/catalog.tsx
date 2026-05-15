@@ -380,7 +380,7 @@ function Catalog() {
         </div>
 
         {/* ── DIY Projects Section ───────────────────────────── */}
-        <div className="mt-24 border-t border-border pt-20 bg-surface/20">
+        <div id="diy-projects" className="mt-24 border-t border-border pt-20 bg-surface/20">
           <div className="container mx-auto px-4">
             <Reveal>
               <div className="text-center max-w-2xl mx-auto mb-12">
