@@ -2,8 +2,14 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Reveal } from "./Reveal";
 
-const catalogImages = import.meta.glob("../../assets/catalog/*.jpg", { eager: true, import: "default" }) as Record<string, string>;
-const image = (file: string) => catalogImages[`../../assets/catalog/${file}`];
+const catalogJpg = import.meta.glob("../../assets/catalog/*.jpg", { eager: true, import: "default" }) as Record<string, string>;
+const catalogPng = import.meta.glob("../../assets/catalog/*.png", { eager: true, import: "default" }) as Record<string, string>;
+
+const image = (file: string) => {
+  const jpg = catalogJpg[`../../assets/catalog/${file}`];
+  if (jpg) return jpg;
+  return catalogPng[`../../assets/catalog/${file}`];
+};
 
 const items = [
   { name: "Big Motherboard", img: image("big_mb1.jpg") },
@@ -18,6 +24,22 @@ const items = [
   { name: "Speaker", img: image("big_speaker.jpg") },
   { name: "12V Charger", img: image("12v_charger.jpg") },
   { name: "Key Set", img: image("key_set1.jpg") },
+  { name: "Gearbox Motor 12V", img: image("gearbox_motor_12v.png") },
+  { name: "Hoverboard Motherboard", img: image("hoverboard_motherboard.png") },
+  { name: "Gear Shift Knob", img: image("gear_shift_knob.png") },
+  { name: "HCD Motor Controller", img: image("hcd_controller.png") },
+  { name: "Controller Box", img: image("gray_mb_box.png") },
+  { name: "JR1721PWM Controller", img: image("jr1721pwm_controller.png") },
+  { name: "Receiver & Transmitter", img: image("jr_receiver_transmitter.png") },
+  { name: "12V 7-Pin Remote Set", img: image("remote_7pin_set.png") },
+  { name: "Honghui Remote", img: image("honghui_remote.png") },
+  { name: "Remote & Receiver Set", img: image("small_remote_set.png") },
+  { name: "Dashboard Panel", img: image("dashboard_panel.png") },
+  { name: "Normal Wiring Set", img: image("wiring_set.png") },
+  { name: "LED Music Board", img: image("music_board_led.png") },
+  { name: "Battery Pack", img: image("battery_pack.png") },
+  { name: "Battery Charger", img: image("battery_charger.png") },
+  { name: "Round Music Board USB", img: image("round_music_usb.png") },
 ];
 
 export function SpareCatalog() {
