@@ -122,6 +122,11 @@ const products: Product[] = [
   { name: "Battery Clips", category: "battery", img: image("battery_clips.png") },
   { name: "Panja Set", category: "battery", img: image("panja_set.png") },
   { name: "20A Fuse", category: "battery", img: image("fuse_20a.png") },
+  { name: "12V 7.5Ah Battery", category: "battery", img: image("battery_12v_7ah.png") },
+  { name: "6V 4.5Ah VRLA Battery", category: "battery", img: image("battery_6v_4ah.png") },
+  { name: "18650 2200mAh Cell", category: "battery", img: image("battery_18650_2200mah.png") },
+  { name: "32700 LiFePO4 Cells", category: "battery", img: image("battery_32700_lifepo4.png") },
+  { name: "18650 Li-ion Cell", category: "battery", img: image("battery_18650_samsung.png") },
   // Speakers
   { name: "Speaker", category: "speaker", img: image("speaker.jpg") },
   { name: "Speaker V2", category: "speaker", img: image("speaker_2.jpg") },
