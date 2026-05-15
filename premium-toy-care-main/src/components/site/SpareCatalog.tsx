@@ -58,6 +58,42 @@ const items = [
   { name: "Motor Controller 24V", img: image("motor_controller_24v.png") },
   { name: "Multi Wiring Set", img: image("multi_wiring_set.png") },
   { name: "Scooter Charger Adapter", img: image("scooter_charger_adapter.png") },
+  // DIY Components
+  { name: "DC Motors",              img: image("diy2_dc_motors.jpg") },
+  { name: "Gear Motors",            img: image("diy2_gear_motors.jpg") },
+  { name: "Propeller Blades",       img: image("diy2_propeller_blades.jpg") },
+  { name: "Propellers (4 Blade)",   img: image("diy2_propellers_4blade.jpg") },
+  { name: "Rubber Tires",           img: image("diy2_rubber_tires.jpg") },
+  { name: "LEDs (Assorted)",        img: image("diy2_leds_assorted.jpg") },
+  { name: "Metal Connectors",       img: image("diy2_metal_connectors.jpg") },
+  { name: "Plastic Bushes",         img: image("diy2_plastic_bushes.jpg") },
+  { name: "Push Switches",          img: image("diy2_push_switches.jpg") },
+  { name: "Screws & Bolts",         img: image("diy2_screws_bolts.jpg") },
+  { name: "LDR Sensors",            img: image("diy2_ldr_sensors.jpg") },
+  { name: "Buzzer",                 img: image("diy2_buzzer.jpg") },
+  { name: "Connecting Wires",       img: image("diy2_connecting_wires.jpg") },
+  { name: "Slide Switches",         img: image("diy2_slide_switches.jpg") },
+  { name: "Rocker Switches",        img: image("diy2_rocker_switches.jpg") },
+  { name: "Screwdriver & Cutter",   img: image("diy2_screwdriver_cutter.jpg") },
+  { name: "Alligator Clips",        img: image("diy2_alligator_clips.jpg") },
+  { name: "Jumper Wires",           img: image("diy2_jumper_wires.jpg") },
+  { name: "Breadboard",             img: image("diy2_breadboard.jpg") },
+  { name: "Jumper Cables",          img: image("diy2_jumper_cables.jpg") },
+  { name: "9V Batteries & Snap",    img: image("diy2_9v_battery.jpg") },
+  { name: "Battery Snap",           img: image("diy2_battery_snap.jpg") },
+  { name: "Battery Holder",         img: image("diy2_battery_holder.jpg") },
+  { name: "18650 Battery Cells",    img: image("diy2_18650_cells.jpg") },
+  { name: "Wooden Sticks",          img: image("diy2_wooden_sticks.jpg") },
+  { name: "Rubber Bands",           img: image("diy2_rubber_bands.jpg") },
+  { name: "Plastic Wheels (Large)", img: image("diy2_wheels_large.jpg") },
+  { name: "Resistors (Assorted)",   img: image("diy2_resistors.jpg") },
+  { name: "Capacitors (Assorted)",  img: image("diy2_capacitors.jpg") },
+  { name: "Diodes",                 img: image("diy2_diodes.jpg") },
+  { name: "BO Motors",              img: image("diy2_bo_motors.jpg") },
+  { name: "Caster Wheel",           img: image("diy2_caster_wheel.jpg") },
+  { name: "Solar Panel",            img: image("diy2_solar_panel.jpg") },
+  { name: "Robot Chassis",          img: image("diy2_robot_chassis.jpg") },
+  { name: "Plastic Wheels (Small)", img: image("diy2_wheels_small.jpg") },
 ];
 
 export function SpareCatalog() {
@@ -85,14 +121,14 @@ export function SpareCatalog() {
             <div className="catalog-marquee-group" key={group} aria-hidden={group === 1}>
               {items.map((item, i) => (
                 <div key={`${group}-${item.name}`} className="w-56 shrink-0 rounded-2xl border border-border bg-gradient-card p-3 shadow-card">
-                  <div className="aspect-square rounded-xl overflow-hidden bg-surface-elevated">
+                  <div className="aspect-square rounded-xl overflow-hidden bg-white/90 flex items-center justify-center p-2">
                     <img
                       src={item.img}
                       alt={item.name}
                       loading={group === 0 ? "eager" : "lazy"}
                       decoding="async"
                       fetchPriority={group === 0 && i < 4 ? "high" : "auto"}
-                      className="w-full h-full object-cover block"
+                      className="w-full h-full object-contain block"
                     />
                   </div>
                   <div className="px-1 pt-3 pb-1 text-sm font-medium">{item.name}</div>
