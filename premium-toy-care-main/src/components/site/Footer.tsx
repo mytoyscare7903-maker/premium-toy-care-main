@@ -1,6 +1,6 @@
 import { Instagram, Facebook, Youtube, Phone, Mail, MapPin } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-import logoIcon from "@/assets/logo-icon.png";
+import logoFallback from "@/assets/logo-icon.png";
 
 const CURRENT_YEAR = 2026;
 
@@ -11,7 +11,7 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={logoIcon} alt="MyToysCare logo" width={40} height={40} loading="lazy" className="h-10 w-10 object-contain" />
+              <img src="/logo.png" alt="MyToysCare logo" width={52} height={52} loading="lazy" onError={(e) => { e.currentTarget.src = logoFallback; }} className="h-13 w-13 object-contain drop-shadow-[0_0_16px_rgba(255,122,26,0.65)]" />
               <span className="font-display text-lg font-bold">
                 MyToys<span className="text-gradient-brand">Care</span>
               </span>

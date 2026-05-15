@@ -1,8 +1,22 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Star, ShieldCheck, Truck, Info, Wrench, Package, CalendarClock, HelpCircle, MessageSquare } from "lucide-react";
+import { ArrowRight, Star, ShieldCheck, Truck, Info, Wrench, Package, CalendarClock, HelpCircle, MessageSquare, MessageCircle } from "lucide-react";
 import heroImg from "@/assets/hero-toys-repair.png";
+import { useEffect, useState } from "react";
+import { supabase } from "../../lib/supabase";
 
 export function Hero() {
+  const [reviewCount, setReviewCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    supabase
+      .from("reviews")
+      .select("id", { count: "exact", head: true })
+      .eq("hidden", false)
+      .then(({ count }) => {
+        if (count !== null) setReviewCount(count);
+      });
+  }, []);
+
   return (
     <section id="home" className="relative pt-32 pb-20 overflow-hidden bg-gradient-hero">
       <div className="absolute inset-0 -z-10">
@@ -40,12 +54,13 @@ export function Hero() {
           </div>
 
           {/* Quick navigation tiles */}
-          <div className="mt-8 grid grid-cols-3 sm:grid-cols-6 gap-2.5">
+          <div className="mt-8 grid grid-cols-4 sm:grid-cols-7 gap-2.5">
             {[
               { href: "#about", label: "About", Icon: Info },
               { href: "#services", label: "Services", Icon: Wrench },
               { href: "/catalog", label: "Catalog", Icon: Package },
               { href: "#rent", label: "Rent", Icon: CalendarClock },
+              { href: "#reviews", label: "Reviews", Icon: MessageCircle },
               { href: "#faq", label: "FAQ", Icon: HelpCircle },
               { href: "#contact", label: "Contact", Icon: MessageSquare },
             ].map(({ href, label, Icon }) => (
@@ -65,7 +80,11 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap gap-6 text-sm">
             <div className="flex items-center gap-2">
               <div className="flex">{[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-brand text-brand" />)}</div>
-              <span className="text-muted-foreground"><b className="text-foreground">4.9/5</b> · 133 Google Reviews</span>
+              <span className="text-muted-foreground">
+                <b className="text-foreground">4.9/5</b>
+                {" · "}
+                {reviewCount !== null ? reviewCount : "—"} Google Reviews
+              </span>
             </div>
           </div>
         </motion.div>

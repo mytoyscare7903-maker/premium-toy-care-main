@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Star, Edit2, EyeOff, Eye, Trash2, Lock, X, Check, Shield, MoreVertical, ExternalLink, Loader2 } from "lucide-react";
+import { Star, Edit2, EyeOff, Eye, Trash2, Lock, X, Check, Shield, MoreVertical, ExternalLink, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../../lib/supabase";
@@ -236,6 +236,8 @@ function ReviewCard({
 }
 
 /* ─── Infinite carousel ──────────────────────────────────────── */
+const CARD_STEP = 336; // card width (320) + gap (16)
+
 function Carousel({ items, isAdmin, onEdit, onToggleHide, onDelete }: {
   items: Review[]; isAdmin: boolean;
   onEdit: (r: Review) => void; onToggleHide: (id: string) => void; onDelete: (id: string) => void;
@@ -265,6 +267,32 @@ function Carousel({ items, isAdmin, onEdit, onToggleHide, onDelete }: {
   const pause = () => { pausedRef.current = true; };
   const resume = () => { pausedRef.current = false; };
 
+  // Smooth manual scroll by one card
+  const scrollBy = (dir: 1 | -1) => {
+    if (!trackRef.current) return;
+    pause();
+    const half = trackRef.current.scrollWidth / 2;
+    let target = posRef.current + dir * CARD_STEP;
+    if (target < 0) target += half;
+    if (target >= half) target -= half;
+    const start = posRef.current;
+    const delta = target - start;
+    const duration = 320;
+    const startTime = performance.now();
+    const animate = (now: number) => {
+      const t = Math.min((now - startTime) / duration, 1);
+      const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      let pos = start + delta * ease;
+      if (pos < 0) pos += half;
+      if (pos >= half) pos -= half;
+      posRef.current = pos;
+      if (trackRef.current) trackRef.current.style.transform = `translateX(-${pos}px)`;
+      if (t < 1) requestAnimationFrame(animate);
+      else setTimeout(resume, 800);
+    };
+    requestAnimationFrame(animate);
+  };
+
   const onTouchStart = (e: React.TouchEvent) => {
     pause();
     dragRef.current = { startX: e.touches[0].clientX, startPos: posRef.current };
@@ -292,8 +320,26 @@ function Carousel({ items, isAdmin, onEdit, onToggleHide, onDelete }: {
             onEdit={onEdit} onToggleHide={onToggleHide} onDelete={onDelete} />
         ))}
       </div>
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-background to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-background to-transparent z-10" />
+
+      {/* Fade edges */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-28 bg-gradient-to-r from-background to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-28 bg-gradient-to-l from-background to-transparent z-10" />
+
+      {/* Navigation buttons */}
+      <button
+        onClick={() => scrollBy(-1)}
+        aria-label="Previous review"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-gradient-card shadow-card text-foreground hover:border-brand/50 hover:text-brand hover:scale-110 transition-all"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button
+        onClick={() => scrollBy(1)}
+        aria-label="Next review"
+        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-gradient-card shadow-card text-foreground hover:border-brand/50 hover:text-brand hover:scale-110 transition-all"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
     </div>
   );
 }
@@ -406,7 +452,19 @@ export function Reviews() {
 
   const visible = reviews.filter((r) => !r.hidden || isAdmin);
 
-  /* ── Admin unlock ── */
+  /* ── Secret admin keyboard shortcut: Ctrl+Shift+A (or Cmd+Shift+A) ── */
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "A") {
+        e.preventDefault();
+        if (isAdmin) { setIsAdmin(false); } else { setAdminOpen(true); }
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [isAdmin]);
+
+  /* ── Admin unlock (kept for fallback, not surfaced in UI) ── */
   const handleAdminClick = () => {
     if (isAdmin) { setIsAdmin(false); return; }
     const n = adminClickCount + 1;
@@ -493,7 +551,7 @@ export function Reviews() {
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="text-xs uppercase tracking-[0.2em] text-brand font-semibold mb-4">Customer Reviews</div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold">
-              Loved by <span className="text-gradient-brand">Indian Parents</span>
+              Loved by <span className="text-gradient-brand">Bangalore Parents</span>
             </h2>
             <div className="mt-7 inline-flex items-center gap-4 rounded-2xl border border-border bg-gradient-card px-6 py-4 shadow-card">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand/15">
@@ -556,15 +614,14 @@ export function Reviews() {
             <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
           </a>
 
-          <button onClick={handleAdminClick}
-            className={`inline-flex items-center gap-2 rounded-xl border px-5 py-3 text-sm font-medium transition-all ${
-              isAdmin
-                ? "border-brand/50 bg-brand/10 text-brand"
-                : "border-border text-muted-foreground hover:text-foreground hover:border-border/60"
-            }`}>
-            <Lock className={`h-4 w-4 ${isAdmin ? "text-brand" : ""}`} />
-            {isAdmin ? "Admin On" : "Admin"}
-          </button>
+          {/* Admin indicator — only visible when admin mode is active */}
+          {isAdmin && (
+            <button onClick={() => setIsAdmin(false)}
+              className="inline-flex items-center gap-2 rounded-xl border border-brand/50 bg-brand/10 px-5 py-3 text-sm font-medium text-brand transition-all">
+              <Lock className="h-4 w-4 text-brand" />
+              Admin On
+            </button>
+          )}
         </div>
 
         {/* Admin info bar */}
@@ -751,3 +808,4 @@ export function Reviews() {
     </section>
   );
 }
+ 

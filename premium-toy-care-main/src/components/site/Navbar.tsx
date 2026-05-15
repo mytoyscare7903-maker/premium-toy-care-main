@@ -1,7 +1,7 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import logoIcon from "@/assets/logo-icon.png";
+import logoFallback from "@/assets/logo-icon.png";
 
 const links = [
   { to: "/", label: "Home", hash: "#home" },
@@ -10,6 +10,7 @@ const links = [
   { to: "/catalog", label: "Spare Parts" },
   { to: "/catalog", label: "DIY Projects", hash: "#diy-projects" },
   { to: "/", label: "Rent", hash: "#rent" },
+  { to: "/", label: "Reviews", hash: "#reviews" },
   { to: "/", label: "FAQ", hash: "#faq" },
   { to: "/", label: "Contact", hash: "#contact" },
 ];
@@ -40,11 +41,12 @@ export function Navbar() {
         >
           <Link to="/" className="flex items-center gap-2 group">
             <img
-              src={logoIcon}
+              src="/logo.png"
               alt="MyToysCare logo"
-              width={40}
-              height={40}
-              className="h-10 w-10 object-contain drop-shadow-[0_0_12px_rgba(255,122,26,0.35)] group-hover:scale-110 transition-transform"
+              width={52}
+              height={52}
+              onError={(e) => { e.currentTarget.src = logoFallback; }}
+              className="h-13 w-13 object-contain drop-shadow-[0_0_16px_rgba(255,122,26,0.65)] group-hover:drop-shadow-[0_0_24px_rgba(255,122,26,0.90)] group-hover:scale-110 transition-all duration-300"
             />
             <span className="font-display text-lg font-bold tracking-tight">
               MyToys<span className="text-gradient-brand">Care</span>
@@ -75,7 +77,7 @@ export function Navbar() {
           </ul>
 
           <a
-            href="https://wa.me/917903913346"
+            href="https://wa.me/916204594205"
             target="_blank"
             rel="noopener"
             className="hidden lg:inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-4 py-2 text-sm font-semibold text-brand-foreground shadow-glow hover:scale-105 transition-transform"
@@ -107,7 +109,7 @@ export function Navbar() {
                 </li>
               ))}
               <a
-                href="https://wa.me/917903913346"
+                href="https://wa.me/916204594205"
                 target="_blank"
                 rel="noopener"
                 className="mt-2 inline-flex justify-center items-center rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground"

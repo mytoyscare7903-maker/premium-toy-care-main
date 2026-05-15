@@ -1,4 +1,4 @@
-import { ShieldCheck, Wrench, Truck, Award, Clock, Users } from "lucide-react";
+import { ShieldCheck, Wrench, Truck, Award, Clock, Users, IndianRupee, BadgeCheck } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const badges = [
@@ -7,7 +7,7 @@ const badges = [
   { Icon: ShieldCheck, label: "Genuine Parts Only" },
   { Icon: Wrench, label: "Expert Technicians" },
   { Icon: Truck, label: "Doorstep Pickup" },
-  { Icon: Clock, label: "1–3 Day Turnaround" },
+  { Icon: Clock, label: "Fast Service" },
 ];
 
 export function TrustBar() {
@@ -19,10 +19,12 @@ export function TrustBar() {
             Trusted by parents across Bangalore
           </p>
           {/* Featured promise tags */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
             {[
               { Icon: ShieldCheck, title: "Guaranteed Warranty", desc: "Every repair backed by a service warranty" },
-              { Icon: Truck, title: "Doorstep Pickup & Drop", desc: "Free collection and delivery across Bangalore" },
+              { Icon: Truck, title: "Doorstep Pickup & Drop", desc: "Safe and Reliable Delivery Support" },
+              { Icon: IndianRupee, title: "Best Price Guarantee", desc: "Competitive pricing with no hidden charges" },
+              { Icon: BadgeCheck, title: "Warranty on Repair", desc: "Quality assured on every repair job" },
             ].map(({ Icon, title, desc }) => (
               <div
                 key={title}
