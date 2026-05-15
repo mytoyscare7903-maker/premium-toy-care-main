@@ -32,31 +32,41 @@ const image = (file: string) => {
 type DiyItem = { name: string; img: string };
 
 const diyItems: DiyItem[] = [
-  { name: "DC Motors",              img: image("diy_dc_motors.jpg") },
-  { name: "Orange Propellers",      img: image("diy_orange_props.jpg") },
-  { name: "Red Propellers",         img: image("diy_red_props.jpg") },
-  { name: "Suction Cups",           img: image("diy_suction_cups.jpg") },
-  { name: "Stepper Motors",         img: image("diy_stepper_motors.jpg") },
-  { name: "LED Array",              img: image("diy_led_array.jpg") },
-  { name: "Screws & Bolts",         img: image("diy_screws_bolts.jpg") },
-  { name: "Wire Coil",              img: image("diy_wire_coil.jpg") },
-  { name: "O-Ring Belt",            img: image("diy_o_ring_belt.jpg") },
-  { name: "Push Switches",          img: image("diy_push_switches.jpg") },
-  { name: "Screwdrivers",           img: image("diy_screwdrivers.jpg") },
-  { name: "Alligator Clips",        img: image("diy_alligator_clips.jpg") },
-  { name: "Breadboard",             img: image("diy_breadboard.jpg") },
-  { name: "Jumper Wires",           img: image("diy_jumper_wires.jpg") },
-  { name: "9V Battery",             img: image("diy_9v_battery.jpg") },
-  { name: "Battery Holder",         img: image("diy_battery_holder.jpg") },
-  { name: "18650 Li-ion Cells",     img: image("diy_18650_cells.jpg") },
-  { name: "Popsicle Sticks",        img: image("diy_popsicle_sticks.jpg") },
-  { name: "Rubber Bands",           img: image("diy_rubber_bands.jpg") },
-  { name: "Caster Wheels",          img: image("diy_caster_wheels.jpg") },
-  { name: "Resistors",              img: image("diy_resistors.jpg") },
-  { name: "Capacitors & Transistors", img: image("diy_capacitors.jpg") },
-  { name: "Solar Panel",            img: image("diy_solar_panel.jpg") },
-  { name: "Robot Chassis",          img: image("diy_robot_chassis.jpg") },
-  { name: "Large Drive Wheels",     img: image("diy_large_wheels.jpg") },
+  { name: "DC Motors",             img: image("diy2_dc_motors.jpg") },
+  { name: "Gear Motors",           img: image("diy2_gear_motors.jpg") },
+  { name: "Propeller Blades",      img: image("diy2_propeller_blades.jpg") },
+  { name: "Propellers (4 Blade)",  img: image("diy2_propellers_4blade.jpg") },
+  { name: "Rubber Tires",          img: image("diy2_rubber_tires.jpg") },
+  { name: "LEDs (Assorted)",       img: image("diy2_leds_assorted.jpg") },
+  { name: "Metal Connectors",      img: image("diy2_metal_connectors.jpg") },
+  { name: "Plastic Bushes",        img: image("diy2_plastic_bushes.jpg") },
+  { name: "Push Switches",         img: image("diy2_push_switches.jpg") },
+  { name: "Screws & Bolts",        img: image("diy2_screws_bolts.jpg") },
+  { name: "LDR Sensors",           img: image("diy2_ldr_sensors.jpg") },
+  { name: "Buzzer",                img: image("diy2_buzzer.jpg") },
+  { name: "Connecting Wires",      img: image("diy2_connecting_wires.jpg") },
+  { name: "Slide Switches",        img: image("diy2_slide_switches.jpg") },
+  { name: "Rocker Switches",       img: image("diy2_rocker_switches.jpg") },
+  { name: "Screwdriver & Cutter",  img: image("diy2_screwdriver_cutter.jpg") },
+  { name: "Alligator Clips",       img: image("diy2_alligator_clips.jpg") },
+  { name: "Jumper Wires",          img: image("diy2_jumper_wires.jpg") },
+  { name: "Breadboard",            img: image("diy2_breadboard.jpg") },
+  { name: "Jumper Cables",         img: image("diy2_jumper_cables.jpg") },
+  { name: "9V Batteries & Snap",   img: image("diy2_9v_battery.jpg") },
+  { name: "Battery Snap",          img: image("diy2_battery_snap.jpg") },
+  { name: "Battery Holder",        img: image("diy2_battery_holder.jpg") },
+  { name: "18650 Battery Cells",   img: image("diy2_18650_cells.jpg") },
+  { name: "Wooden Sticks",         img: image("diy2_wooden_sticks.jpg") },
+  { name: "Rubber Bands",          img: image("diy2_rubber_bands.jpg") },
+  { name: "Plastic Wheels (Large)",img: image("diy2_wheels_large.jpg") },
+  { name: "Resistors (Assorted)",  img: image("diy2_resistors.jpg") },
+  { name: "Capacitors (Assorted)", img: image("diy2_capacitors.jpg") },
+  { name: "Diodes",                img: image("diy2_diodes.jpg") },
+  { name: "BO Motors",             img: image("diy2_bo_motors.jpg") },
+  { name: "Caster Wheel",          img: image("diy2_caster_wheel.jpg") },
+  { name: "Solar Panel",           img: image("diy2_solar_panel.jpg") },
+  { name: "Robot Chassis",         img: image("diy2_robot_chassis.jpg") },
+  { name: "Plastic Wheels (Small)",img: image("diy2_wheels_small.jpg") },
 ];
 
 const products: Product[] = [
@@ -346,8 +356,8 @@ function Catalog() {
                 className="group flex h-full animate-fade-in flex-col rounded-2xl border border-border bg-gradient-card p-3 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40"
                 style={{ animationDelay: `${(i % 8) * 40}ms` }}
               >
-                <div className="aspect-square overflow-hidden rounded-xl bg-surface-elevated">
-                  <img src={p.img} alt={p.name} loading="eager" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="aspect-square overflow-hidden rounded-xl bg-white/90 flex items-center justify-center p-2">
+                  <img src={p.img} alt={p.name} loading="eager" className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" />
                 </div>
                 <div className="flex-1 px-1 pt-3">
                   <h3 className="text-sm font-semibold leading-tight">{p.name}</h3>
@@ -391,12 +401,12 @@ function Catalog() {
                   className="group flex flex-col rounded-2xl border border-border bg-gradient-card p-3 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 animate-fade-in"
                   style={{ animationDelay: `${(i % 10) * 50}ms` }}
                 >
-                  <div className="aspect-square overflow-hidden rounded-xl bg-surface-elevated">
+                  <div className="aspect-square overflow-hidden rounded-xl bg-white/90 flex items-center justify-center p-2">
                     <img
                       src={item.img}
                       alt={item.name}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <div className="flex-1 px-1 pt-2 pb-1">
