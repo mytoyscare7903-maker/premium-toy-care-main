@@ -31,7 +31,8 @@ const image = (file: string) => {
 };
 
 function waEnquiry(name: string, description: string, imgSrc: string): string {
-  const imgUrl = imgSrc.startsWith("http") ? imgSrc : `${window.location.origin}${imgSrc}`;
+  const origin = window.location.origin;
+  const imgUrl = imgSrc.startsWith("http") ? imgSrc : `${origin}${imgSrc}`;
   const msg = [
     "Hello MyToysCare,",
     "",
@@ -44,6 +45,9 @@ function waEnquiry(name: string, description: string, imgSrc: string): string {
     "",
     "Product Image:",
     imgUrl,
+    "",
+    "Product Link:",
+    `${origin}/catalog`,
   ].join("\n");
   return `https://wa.me/917903913346?text=${encodeURIComponent(msg)}`;
 }
