@@ -72,32 +72,32 @@
 
 :root {
   --radius: 0.875rem;
-  /* Deep midnight navy — premium dark theme */
-  --background: oklch(0.09 0.028 268);
-  --foreground: oklch(0.97 0.008 245);
-  --surface: oklch(0.14 0.030 268);
-  --surface-elevated: oklch(0.19 0.028 265);
-  --card: oklch(0.16 0.028 268);
+  /* Professional dark slate theme */
+  --background: oklch(13.441% 0.00002 271.152);
+  --foreground: oklch(99.405% 0.00011 271.152);
+  --surface: oklch(56.819% 0.09747 214.375);
+  --surface-elevated: oklch(29.773% 0.09224 256.479);
+  --card: oklch(0.23 0.024 255);
   --card-foreground: oklch(0.96 0.010 240);
-  --popover: oklch(0.16 0.028 268);
+  --popover: oklch(0.23 0.024 255);
   --popover-foreground: oklch(0.96 0.010 240);
   --primary: oklch(0.74 0.18 55);
-  --primary-foreground: oklch(0.10 0.028 268);
+  --primary-foreground: oklch(0.16 0.020 255);
   --brand: oklch(0.74 0.18 55);
-  --brand-foreground: oklch(0.10 0.028 268);
+  --brand-foreground: oklch(0.16 0.020 255);
   --brand-glow: oklch(0.82 0.16 65);
   --whatsapp: oklch(0.65 0.20 145);
-  --whatsapp-foreground: oklch(0.99 0.005 145);
-  --secondary: oklch(0.20 0.028 268);
+  --whatsapp-foreground: oklch(99.481% 0.00104 11.158);
+  --secondary: oklch(0.28 0.028 255);
   --secondary-foreground: oklch(0.96 0.010 240);
-  --muted: oklch(0.20 0.028 268);
-  --muted-foreground: oklch(0.65 0.018 250);
+  --muted: oklch(0.28 0.028 255);
+  --muted-foreground: oklch(0.72 0.020 245);
   --accent: oklch(0.74 0.18 55);
-  --accent-foreground: oklch(0.10 0.028 268);
+  --accent-foreground: oklch(0.16 0.020 255);
   --destructive: oklch(0.65 0.22 25);
   --destructive-foreground: oklch(0.98 0.005 250);
-  --border: oklch(0.97 0.008 245 / 0.10);
-  --input: oklch(0.22 0.028 268);
+  --border: oklch(0.96 0.010 240 / 0.12);
+  --input: oklch(0.30 0.026 255);
   --ring: oklch(0.74 0.18 55);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
@@ -114,11 +114,11 @@
   --sidebar-ring: oklch(0.704 0.04 256.788);
   /* Gradients & shadows */
   --gradient-brand: linear-gradient(135deg, oklch(0.74 0.18 55), oklch(0.82 0.16 65));
-  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% -5%, oklch(0.74 0.18 55 / 0.20), transparent 55%), linear-gradient(180deg, oklch(0.13 0.030 268) 0%, oklch(0.09 0.028 268) 100%);
-  --gradient-card: linear-gradient(145deg, oklch(0.19 0.028 268 / 0.90), oklch(0.14 0.026 268 / 0.70));
-  --shadow-glow: 0 0 60px -10px oklch(0.74 0.18 55 / 0.50);
-  --shadow-elegant: 0 20px 60px -20px oklch(0.02 0 0 / 0.80);
-  --shadow-card: 0 8px 32px -8px oklch(0.02 0 0 / 0.70);
+  --gradient-hero: radial-gradient(ellipse at top, oklch(0.74 0.18 55 / 0.22), transparent 58%), linear-gradient(180deg, oklch(0.20 0.022 255), oklch(0.16 0.020 255));
+  --gradient-card: linear-gradient(145deg, oklch(0.26 0.024 255 / 0.85), oklch(0.20 0.022 255 / 0.65));
+  --shadow-glow: 0 0 60px -10px oklch(0.74 0.18 55 / 0.45);
+  --shadow-elegant: 0 20px 60px -20px oklch(0.02 0 0 / 0.7);
+  --shadow-card: 0 8px 32px -8px oklch(0.02 0 0 / 0.6);
 }
 
 .dark {
@@ -164,10 +164,11 @@
   body {
     background-color: var(--color-background);
     background-image:
-      radial-gradient(ellipse 75% 55% at 50% -8%, oklch(0.74 0.18 55 / 0.14), transparent 58%),
-      radial-gradient(ellipse 45% 38% at 92% 8%, oklch(0.60 0.14 268 / 0.18), transparent 60%),
-      radial-gradient(ellipse 40% 35% at 8% 92%, oklch(0.58 0.12 268 / 0.12), transparent 60%),
-      linear-gradient(175deg, oklch(0.13 0.030 268) 0%, oklch(0.09 0.028 268) 55%, oklch(0.08 0.025 270) 100%);
+      radial-gradient(ellipse 60% 45% at 0% 0%, oklch(0.55 0.16 55 / 0.30), transparent 62%),
+      radial-gradient(ellipse 55% 42% at 100% 5%, oklch(0.50 0.16 240 / 0.32), transparent 65%),
+      radial-gradient(ellipse 50% 40% at 95% 60%, oklch(0.50 0.16 295 / 0.22), transparent 65%),
+      radial-gradient(ellipse 55% 42% at 5% 95%, oklch(0.52 0.14 175 / 0.22), transparent 65%),
+      linear-gradient(180deg, oklch(0.18 0.022 255) 0%, oklch(0.15 0.022 260) 100%);
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--color-foreground);
@@ -262,23 +263,11 @@
     animation: pulse-glow 2s ease-out infinite;
   }
 
-  @keyframes reviews-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
+  @keyframes sheet-up {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
   }
-  .reviews-carousel-track {
-    display: flex;
-    width: max-content;
-    padding: 0.75rem 0;
-    will-change: transform;
-    animation: reviews-scroll 45s linear infinite;
-  }
-  .reviews-carousel-track.paused {
-    animation-play-state: paused;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reviews-carousel-track {
-      animation: none;
-    }
+  .animate-sheet-up {
+    animation: sheet-up 0.28s cubic-bezier(0.32, 0.72, 0, 1) both;
   }
 }

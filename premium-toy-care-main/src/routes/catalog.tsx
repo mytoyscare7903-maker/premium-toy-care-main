@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo, useEffect } from "react";
-import { Search, MessageCircle, PackageSearch, Send, CheckCircle2 } from "lucide-react";
+import { Search, MessageCircle, PackageSearch, Send, CheckCircle2, Info, X } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
@@ -287,10 +287,13 @@ function RequestPartForm() {
   );
 }
 
+type MobilePreview = { name: string; description: string; img: string; status: string } | null;
+
 function Catalog() {
   const [active, setActive] = useState("all");
   const [query, setQuery] = useState("");
   const [showFloater, setShowFloater] = useState(false);
+  const [mobilePreview, setMobilePreview] = useState<MobilePreview>(null);
 
   useEffect(() => {
     const onScroll = () => setShowFloater(window.scrollY > 320);
@@ -373,19 +376,34 @@ function Catalog() {
                 className="group flex h-full animate-fade-in flex-col rounded-2xl border border-border bg-gradient-card p-3 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40"
                 style={{ animationDelay: `${(i % 8) * 40}ms` }}
               >
-                <div className="aspect-square overflow-hidden rounded-xl bg-white/90 flex items-center justify-center p-2">
+                <div className="relative aspect-square overflow-hidden rounded-xl bg-white/90 flex items-center justify-center p-2">
                   <img src={p.img} alt={p.name} loading="eager" className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105" />
+                  {/* Desktop hover description overlay */}
+                  <div className="pointer-events-none absolute inset-0 hidden sm:flex flex-col justify-end rounded-xl bg-gradient-to-t from-black/85 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="p-3 pb-3.5 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+                      <p className="text-white/90 text-[10px] leading-relaxed line-clamp-5">{p.description}</p>
+                    </div>
+                  </div>
                 </div>
                 <div className="flex-1 px-1 pt-3">
                   <h3 className="text-sm font-semibold leading-tight">{p.name}</h3>
                   <div className="mt-1 text-xs font-medium text-brand">In Stock</div>
                 </div>
-                <button
-                  onClick={() => window.open(waEnquiry(p.name, p.description, p.img), "_blank")}
-                  className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-brand px-3 py-2 text-xs font-semibold text-brand-foreground transition-transform hover:scale-[1.02] w-full"
-                >
-                  <MessageCircle className="h-3.5 w-3.5" /> Enquire
-                </button>
+                <div className="mt-3 flex gap-2">
+                  <button
+                    className="sm:hidden flex items-center justify-center rounded-lg border border-border bg-surface-elevated h-8 w-8 text-muted-foreground hover:text-brand shrink-0 transition-colors"
+                    onClick={() => setMobilePreview({ name: p.name, description: p.description, img: p.img, status: "In Stock" })}
+                    aria-label="Quick view"
+                  >
+                    <Info className="h-3.5 w-3.5" />
+                  </button>
+                  <button
+                    onClick={() => window.open(waEnquiry(p.name, p.description, p.img), "_blank")}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-brand px-3 py-2 text-xs font-semibold text-brand-foreground transition-transform hover:scale-[1.02]"
+                  >
+                    <MessageCircle className="h-3.5 w-3.5" /> Enquire
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -417,24 +435,39 @@ function Catalog() {
                   className="group flex flex-col rounded-2xl border border-border bg-gradient-card p-3 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 animate-fade-in"
                   style={{ animationDelay: `${(i % 10) * 50}ms` }}
                 >
-                  <div className="aspect-square overflow-hidden rounded-xl bg-white/90 flex items-center justify-center p-2">
+                  <div className="relative aspect-square overflow-hidden rounded-xl bg-white/90 flex items-center justify-center p-2">
                     <img
                       src={item.img}
                       alt={item.name}
                       loading="lazy"
                       className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
+                    {/* Desktop hover description overlay */}
+                    <div className="pointer-events-none absolute inset-0 hidden sm:flex flex-col justify-end rounded-xl bg-gradient-to-t from-black/85 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="p-2.5 pb-3 translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+                        <p className="text-white/90 text-[9px] leading-relaxed line-clamp-5">{item.description}</p>
+                      </div>
+                    </div>
                   </div>
                   <div className="flex-1 px-1 pt-2 pb-1">
                     <h3 className="text-xs font-semibold leading-tight">{item.name}</h3>
                     <div className="mt-0.5 text-[10px] font-medium text-brand">Available</div>
                   </div>
-                  <button
-                    onClick={() => window.open(waEnquiry(item.name, item.description, item.img), "_blank")}
-                    className="mt-2 inline-flex items-center justify-center gap-1 rounded-lg bg-gradient-brand px-2 py-1.5 text-[10px] font-semibold text-brand-foreground transition-transform hover:scale-[1.02] w-full"
-                  >
-                    <MessageCircle className="h-3 w-3" /> Enquire
-                  </button>
+                  <div className="mt-2 flex gap-1.5">
+                    <button
+                      className="sm:hidden flex items-center justify-center rounded-lg border border-border bg-surface-elevated h-7 w-7 text-muted-foreground hover:text-brand shrink-0 transition-colors"
+                      onClick={() => setMobilePreview({ name: item.name, description: item.description, img: item.img, status: "Available" })}
+                      aria-label="Quick view"
+                    >
+                      <Info className="h-3 w-3" />
+                    </button>
+                    <button
+                      onClick={() => window.open(waEnquiry(item.name, item.description, item.img), "_blank")}
+                      className="flex-1 inline-flex items-center justify-center gap-1 rounded-lg bg-gradient-brand px-2 py-1.5 text-[10px] font-semibold text-brand-foreground transition-transform hover:scale-[1.02]"
+                    >
+                      <MessageCircle className="h-3 w-3" /> Enquire
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -447,6 +480,48 @@ function Catalog() {
       </main>
       <Footer />
       <WhatsAppFloat />
+
+      {/* ── Mobile Quick Preview Bottom Sheet ─────────────────── */}
+      {mobilePreview && (
+        <div
+          className="fixed inset-0 z-[60] sm:hidden flex flex-col justify-end"
+          onClick={() => setMobilePreview(null)}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div
+            className="relative rounded-t-3xl border-t border-border bg-[oklch(0.18_0.024_255)] p-6 animate-sheet-up"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-border/60" />
+            <div className="flex items-start gap-4 mb-5">
+              <div className="w-20 h-20 rounded-2xl bg-white/90 flex items-center justify-center p-2 shrink-0 border border-border">
+                <img src={mobilePreview.img} alt={mobilePreview.name} className="w-full h-full object-contain" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-base leading-tight">{mobilePreview.name}</h3>
+                <div className="mt-1.5 text-xs font-semibold text-brand">{mobilePreview.status}</div>
+              </div>
+              <button
+                onClick={() => setMobilePreview(null)}
+                className="shrink-0 flex items-center justify-center h-8 w-8 rounded-lg bg-surface-elevated text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed mb-6">{mobilePreview.description}</p>
+            <button
+              onClick={() => {
+                window.open(waEnquiry(mobilePreview.name, mobilePreview.description, mobilePreview.img), "_blank");
+                setMobilePreview(null);
+              }}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-glow"
+            >
+              <MessageCircle className="h-4 w-4" /> Enquire on WhatsApp
+            </button>
+          </div>
+        </div>
+      )}
 
       <button
         onClick={scrollToForm}
