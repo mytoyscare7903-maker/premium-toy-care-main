@@ -18,7 +18,8 @@ export const Route = createFileRoute("/catalog")({
   component: Catalog,
 });
 
-type Product = { name: string; category: string; img: string };
+type Product = { name: string; category: string; img: string; description: string };
+type DiyItem  = { name: string; img: string; description: string };
 
 const catalogJpg = import.meta.glob("../assets/catalog/*.jpg", { eager: true, import: "default" }) as Record<string, string>;
 const catalogPng = import.meta.glob("../assets/catalog/*.png", { eager: true, import: "default" }) as Record<string, string>;
@@ -29,127 +30,143 @@ const image = (file: string) => {
   return catalogPng[`../assets/catalog/${file}`];
 };
 
-type DiyItem = { name: string; img: string };
+function waEnquiry(name: string, description: string, imgSrc: string): string {
+  const imgUrl = imgSrc.startsWith("http") ? imgSrc : `${window.location.origin}${imgSrc}`;
+  const msg = [
+    "Hello MyToysCare,",
+    "",
+    "I want enquiry for this product.",
+    "",
+    `Product Name: ${name}`,
+    "",
+    "Description:",
+    description,
+    "",
+    "Product Image:",
+    imgUrl,
+  ].join("\n");
+  return `https://wa.me/917903913346?text=${encodeURIComponent(msg)}`;
+}
 
 const diyItems: DiyItem[] = [
-  { name: "DC Motors",             img: image("diy2_dc_motors.jpg") },
-  { name: "Gear Motors",           img: image("diy2_gear_motors.jpg") },
-  { name: "Propeller Blades",      img: image("diy2_propeller_blades.jpg") },
-  { name: "Propellers (4 Blade)",  img: image("diy2_propellers_4blade.jpg") },
-  { name: "Rubber Tires",          img: image("diy2_rubber_tires.jpg") },
-  { name: "LEDs (Assorted)",       img: image("diy2_leds_assorted.jpg") },
-  { name: "Metal Connectors",      img: image("diy2_metal_connectors.jpg") },
-  { name: "Plastic Bushes",        img: image("diy2_plastic_bushes.jpg") },
-  { name: "Push Switches",         img: image("diy2_push_switches.jpg") },
-  { name: "Screws & Bolts",        img: image("diy2_screws_bolts.jpg") },
-  { name: "LDR Sensors",           img: image("diy2_ldr_sensors.jpg") },
-  { name: "Buzzer",                img: image("diy2_buzzer.jpg") },
-  { name: "Connecting Wires",      img: image("diy2_connecting_wires.jpg") },
-  { name: "Slide Switches",        img: image("diy2_slide_switches.jpg") },
-  { name: "Rocker Switches",       img: image("diy2_rocker_switches.jpg") },
-  { name: "Screwdriver & Cutter",  img: image("diy2_screwdriver_cutter.jpg") },
-  { name: "Alligator Clips",       img: image("diy2_alligator_clips.jpg") },
-  { name: "Jumper Wires",          img: image("diy2_jumper_wires.jpg") },
-  { name: "Breadboard",            img: image("diy2_breadboard.jpg") },
-  { name: "Jumper Cables",         img: image("diy2_jumper_cables.jpg") },
-  { name: "9V Batteries & Snap",   img: image("diy2_9v_battery.jpg") },
-  { name: "Battery Snap",          img: image("diy2_battery_snap.jpg") },
-  { name: "Battery Holder",        img: image("diy2_battery_holder.jpg") },
-  { name: "18650 Battery Cells",   img: image("diy2_18650_cells.jpg") },
-  { name: "Wooden Sticks",         img: image("diy2_wooden_sticks.jpg") },
-  { name: "Rubber Bands",          img: image("diy2_rubber_bands.jpg") },
-  { name: "Plastic Wheels (Large)",img: image("diy2_wheels_large.jpg") },
-  { name: "Resistors (Assorted)",  img: image("diy2_resistors.jpg") },
-  { name: "Capacitors (Assorted)", img: image("diy2_capacitors.jpg") },
-  { name: "Diodes",                img: image("diy2_diodes.jpg") },
-  { name: "BO Motors",             img: image("diy2_bo_motors.jpg") },
-  { name: "Caster Wheel",          img: image("diy2_caster_wheel.jpg") },
-  { name: "Solar Panel",           img: image("diy2_solar_panel.jpg") },
-  { name: "Robot Chassis",         img: image("diy2_robot_chassis.jpg") },
-  { name: "Plastic Wheels (Small)",img: image("diy2_wheels_small.jpg") },
+  { name: "DC Motors",              img: image("diy2_dc_motors.jpg"),          description: "Standard DC hobby motors suitable for small robots and DIY toy builds. Multiple voltage ratings available." },
+  { name: "Gear Motors",            img: image("diy2_gear_motors.jpg"),         description: "Gear-reduced DC motors offering higher torque at lower RPM. Ideal for wheels and mechanical arms." },
+  { name: "Propeller Blades",       img: image("diy2_propeller_blades.jpg"),    description: "Lightweight plastic propeller blades compatible with standard hobby motors for DIY drone and fan projects." },
+  { name: "Propellers (4 Blade)",   img: image("diy2_propellers_4blade.jpg"),   description: "4-blade propellers for increased thrust in drone or hovercraft DIY builds." },
+  { name: "Rubber Tires",           img: image("diy2_rubber_tires.jpg"),        description: "Grippy rubber tires for DIY robot and toy car projects. Available in multiple sizes." },
+  { name: "LEDs (Assorted)",        img: image("diy2_leds_assorted.jpg"),       description: "Assorted LED pack in multiple colours — red, green, blue, yellow, white. Great for indicators and lighting." },
+  { name: "Metal Connectors",       img: image("diy2_metal_connectors.jpg"),    description: "Sturdy metal crimp connectors and terminals for reliable electrical connections in DIY builds." },
+  { name: "Plastic Bushes",         img: image("diy2_plastic_bushes.jpg"),      description: "Plastic bushings for smooth axle rotation and shaft alignment in motorised toy projects." },
+  { name: "Push Switches",          img: image("diy2_push_switches.jpg"),       description: "Momentary push-button switches for circuits, robot triggers, and control panels." },
+  { name: "Screws & Bolts",         img: image("diy2_screws_bolts.jpg"),        description: "Assorted M2/M3 screws and bolts for assembling robot chassis and toy enclosures." },
+  { name: "LDR Sensors",            img: image("diy2_ldr_sensors.jpg"),         description: "Light Dependent Resistors (LDR) for line-following robots and light-sensitive DIY projects." },
+  { name: "Buzzer",                 img: image("diy2_buzzer.jpg"),              description: "Active piezo buzzer for alerts and sound feedback in Arduino or standalone projects." },
+  { name: "Connecting Wires",       img: image("diy2_connecting_wires.jpg"),    description: "Flexible single-strand connecting wires for breadboard and prototype circuit connections." },
+  { name: "Slide Switches",         img: image("diy2_slide_switches.jpg"),      description: "SPDT slide switches for power on/off and mode selection in DIY electronic builds." },
+  { name: "Rocker Switches",        img: image("diy2_rocker_switches.jpg"),     description: "Panel-mount rocker switches for controlling motors and power circuits in toy projects." },
+  { name: "Screwdriver & Cutter",   img: image("diy2_screwdriver_cutter.jpg"), description: "Mini precision screwdriver and wire cutter set for electronics assembly and repair." },
+  { name: "Alligator Clips",        img: image("diy2_alligator_clips.jpg"),     description: "Insulated alligator clip leads for quick prototyping and battery connections." },
+  { name: "Jumper Wires",           img: image("diy2_jumper_wires.jpg"),        description: "Dupont jumper wires (M-M, M-F, F-F) for breadboard and microcontroller projects." },
+  { name: "Breadboard",             img: image("diy2_breadboard.jpg"),          description: "Solderless 830-point breadboard for prototyping electronic circuits without soldering." },
+  { name: "Jumper Cables",          img: image("diy2_jumper_cables.jpg"),       description: "Heavy-duty jumper cables for connecting battery packs and power distribution." },
+  { name: "9V Battery & Snap",      img: image("diy2_9v_battery.jpg"),          description: "9V alkaline battery with snap connector — ideal for powering small robots and sensor circuits." },
+  { name: "Battery Snap",           img: image("diy2_battery_snap.jpg"),        description: "9V battery snap connector with wire leads for quick battery connection in DIY projects." },
+  { name: "Battery Holder",         img: image("diy2_battery_holder.jpg"),      description: "AA/AAA battery holder with switch and wire leads for portable DIY power supplies." },
+  { name: "18650 Battery Cells",    img: image("diy2_18650_cells.jpg"),         description: "Rechargeable 18650 Li-ion cells for high-capacity DIY battery packs and robot power." },
+  { name: "Wooden Sticks",          img: image("diy2_wooden_sticks.jpg"),       description: "Craft and popsicle wooden sticks for building DIY toy frames, bridges, and structures." },
+  { name: "Rubber Bands",           img: image("diy2_rubber_bands.jpg"),        description: "Assorted rubber bands for DIY mechanical projects, tensioning, and simple machines." },
+  { name: "Plastic Wheels (Large)", img: image("diy2_wheels_large.jpg"),        description: "Large diameter plastic wheels for robot cars and motorised DIY vehicles." },
+  { name: "Resistors (Assorted)",   img: image("diy2_resistors.jpg"),           description: "Carbon film resistors in popular values (100Ω–1MΩ) for current limiting and voltage dividers." },
+  { name: "Capacitors (Assorted)",  img: image("diy2_capacitors.jpg"),          description: "Electrolytic and ceramic capacitors for filtering, timing, and energy storage in circuits." },
+  { name: "Diodes",                 img: image("diy2_diodes.jpg"),              description: "1N4007 rectifier diodes for polarity protection and power circuits in DIY builds." },
+  { name: "BO Motors",              img: image("diy2_bo_motors.jpg"),           description: "Battery-Operated (BO) gear motors — the standard motor for school and hobby robots." },
+  { name: "Caster Wheel",           img: image("diy2_caster_wheel.jpg"),        description: "360° swivel caster wheel for the rear/front support of 2-wheeled DIY robots." },
+  { name: "Solar Panel",            img: image("diy2_solar_panel.jpg"),         description: "Small solar panel (5V) for solar-powered DIY toy and science project builds." },
+  { name: "Robot Chassis",          img: image("diy2_robot_chassis.jpg"),       description: "2-wheel drive acrylic/plastic robot chassis kit with motor mounts and battery tray." },
+  { name: "Plastic Wheels (Small)", img: image("diy2_wheels_small.jpg"),        description: "Small plastic wheels compatible with BO motors and standard robot chassis kits." },
 ];
 
 const products: Product[] = [
   // Motherboards
-  { name: "Big Motherboard", category: "motherboard", img: image("big_mb1.jpg") },
-  { name: "Big Motherboard (Variant)", category: "motherboard", img: image("bigmb_3.jpg") },
-  { name: "Small Motherboard", category: "motherboard", img: image("small_mb.jpg") },
-  { name: "Small Motherboard (Variant)", category: "motherboard", img: image("small_mb2.jpg") },
-  { name: "Small Blue Motherboard", category: "motherboard", img: image("smallblue_mb2.jpg") },
-  { name: "Small Motherboard 12", category: "motherboard", img: image("smallmb_12.jpg") },
-  { name: "Motherboard with Remote", category: "motherboard", img: image("Mb_remote1.jpg") },
-  { name: "Small MB + Remote", category: "motherboard", img: image("smallmb_remote2.jpg") },
-  { name: "Multifunctional Board", category: "motherboard", img: image("multifunctional_board.jpg") },
-  { name: "Multifunctional Board V2", category: "motherboard", img: image("multifunctional_board2.jpg") },
-  { name: "Hoverboard Motherboard", category: "motherboard", img: image("hoverboard_motherboard.png") },
-  { name: "Controller Box", category: "motherboard", img: image("gray_mb_box.png") },
-  { name: "Dashboard Panel", category: "motherboard", img: image("dashboard_panel.png") },
-  { name: "Speedometer Dashboard", category: "motherboard", img: image("speedometer_dashboard.png") },
+  { name: "Big Motherboard",               category: "motherboard", img: image("big_mb1.jpg"),                   description: "Large-format ride-on toy motherboard with multi-function support for 12V/24V systems. Controls motor, music, lights and remote receiver." },
+  { name: "Big Motherboard (Variant)",     category: "motherboard", img: image("bigmb_3.jpg"),                   description: "Alternate variant of the big motherboard with extended I/O ports for complex ride-on toy setups." },
+  { name: "Small Motherboard",             category: "motherboard", img: image("small_mb.jpg"),                  description: "Compact toy motherboard for 6V–12V ride-on cars. Integrates motor driver, music module, and remote receiver." },
+  { name: "Small Motherboard (Variant)",   category: "motherboard", img: image("small_mb2.jpg"),                 description: "Variant small motherboard with different connector layout. Suitable for compact ride-on models." },
+  { name: "Small Blue Motherboard",        category: "motherboard", img: image("smallblue_mb2.jpg"),             description: "Blue-PCB small motherboard designed for 6V kids' cars with built-in music and motor control." },
+  { name: "Small Motherboard 12",          category: "motherboard", img: image("smallmb_12.jpg"),                description: "12V compatible small motherboard for upgraded ride-on vehicles needing more power and features." },
+  { name: "Motherboard with Remote",       category: "motherboard", img: image("Mb_remote1.jpg"),                description: "Motherboard bundled with its paired remote control. Plug-and-play replacement for ride-on toy electronics." },
+  { name: "Small MB + Remote",             category: "motherboard", img: image("smallmb_remote2.jpg"),           description: "Small motherboard and remote set in a compact form factor. Ideal for lightweight ride-on models." },
+  { name: "Multifunctional Board",         category: "motherboard", img: image("multifunctional_board.jpg"),     description: "Advanced multifunctional control board supporting motor, lights, USB, SD card, and Bluetooth audio." },
+  { name: "Multifunctional Board V2",      category: "motherboard", img: image("multifunctional_board2.jpg"),    description: "Updated version of the multifunctional board with improved heat dissipation and more I/O options." },
+  { name: "Hoverboard Motherboard",        category: "motherboard", img: image("hoverboard_motherboard.png"),    description: "Replacement motherboard for self-balancing hoverboards. Compatible with most 6.5\"/8\" models." },
+  { name: "Controller Box",               category: "motherboard", img: image("gray_mb_box.png"),               description: "Enclosed controller box housing the main PCB for water-resistant and dustproof installation." },
+  { name: "Dashboard Panel",              category: "motherboard", img: image("dashboard_panel.png"),           description: "Toy car dashboard panel with switches, display, and audio controls for realistic ride-on experience." },
+  { name: "Speedometer Dashboard",        category: "motherboard", img: image("speedometer_dashboard.png"),     description: "Decorative speedometer dashboard panel for kids' ride-on cars. Adds realistic cockpit feel." },
   // Remotes
-  { name: "Remote Controller", category: "remote", img: image("remote1.jpg") },
-  { name: "Remote Controller V2", category: "remote", img: image("remote2.jpg") },
-  { name: "Remote Controller 7", category: "remote", img: image("remote_7.jpg") },
-  { name: "Multifunctional Remote", category: "remote", img: image("multifunctional_remote.jpg") },
-  { name: "JR Receiver & Transmitter", category: "remote", img: image("jr_receiver_transmitter.png") },
-  { name: "12V 7-Pin Remote Set", category: "remote", img: image("remote_7pin_set.png") },
-  { name: "Honghui Remote", category: "remote", img: image("honghui_remote.png") },
-  { name: "Remote & Receiver Set", category: "remote", img: image("small_remote_set.png") },
+  { name: "Remote Controller",            category: "remote", img: image("remote1.jpg"),                        description: "Standard 2.4GHz parental remote controller for ride-on cars. Controls speed, direction, and horn." },
+  { name: "Remote Controller V2",         category: "remote", img: image("remote2.jpg"),                        description: "Upgraded remote with additional function buttons and extended range up to 30 metres." },
+  { name: "Remote Controller 7",          category: "remote", img: image("remote_7.jpg"),                       description: "7-function remote controller for advanced ride-on vehicles with multi-channel control." },
+  { name: "Multifunctional Remote",       category: "remote", img: image("multifunctional_remote.jpg"),         description: "Feature-rich remote with speed modes, music control, and forward/reverse for ride-on toys." },
+  { name: "JR Receiver & Transmitter",    category: "remote", img: image("jr_receiver_transmitter.png"),        description: "JR-standard RC receiver and transmitter pair. Compatible with most hobby-grade ride-on toys." },
+  { name: "12V 7-Pin Remote Set",         category: "remote", img: image("remote_7pin_set.png"),                description: "Complete 12V remote set with 7-pin connector. Direct replacement for compatible ride-on systems." },
+  { name: "Honghui Remote",               category: "remote", img: image("honghui_remote.png"),                 description: "Honghui-brand remote controller for specific ride-on car models requiring proprietary replacement." },
+  { name: "Remote & Receiver Set",        category: "remote", img: image("small_remote_set.png"),               description: "Compact remote and receiver set pre-paired from factory. Easy plug-and-play installation." },
   // Controllers
-  { name: "HCD Motor Controller", category: "controller", img: image("hcd_controller.png") },
-  { name: "JR1721PWM Controller", category: "controller", img: image("jr1721pwm_controller.png") },
-  { name: "Electric Bike Controller", category: "controller", img: image("electric_bike_controller.png") },
-  { name: "Scooter Motor Controller", category: "controller", img: image("scooter_motor_controller.png") },
-  { name: "Motor Controller 24V", category: "controller", img: image("motor_controller_24v.png") },
+  { name: "HCD Motor Controller",         category: "controller", img: image("hcd_controller.png"),             description: "HCD series motor speed controller for 12V/24V DC motors in ride-on cars and scooters." },
+  { name: "JR1721PWM Controller",         category: "controller", img: image("jr1721pwm_controller.png"),       description: "PWM motor controller for precise speed regulation in electric scooters and ride-on vehicles." },
+  { name: "Electric Bike Controller",     category: "controller", img: image("electric_bike_controller.png"),   description: "Controller for electric toy bikes and scooters. Handles throttle input and motor speed management." },
+  { name: "Scooter Motor Controller",     category: "controller", img: image("scooter_motor_controller.png"),   description: "Dedicated motor controller for electric kick scooters and ride-on bikes up to 36V." },
+  { name: "Motor Controller 24V",         category: "controller", img: image("motor_controller_24v.png"),       description: "24V motor speed controller for high-power ride-on vehicles and twin-motor setups." },
   // Gearbox / Steering
-  { name: "Steering Assembly", category: "gearbox", img: image("stearing1.jpg") },
-  { name: "Steering Motor", category: "gearbox", img: image("stearing_motor.jpg") },
-  { name: "Steering Motor V3", category: "gearbox", img: image("stearing_motor3.jpg") },
-  { name: "Gearbox Motor 12V", category: "gearbox", img: image("gearbox_motor_12v.png") },
-  { name: "Gear Shift Knob", category: "gearbox", img: image("gear_shift_knob.png") },
+  { name: "Steering Assembly",            category: "gearbox", img: image("stearing1.jpg"),                     description: "Complete steering assembly including column, rack and motor bracket for ride-on cars." },
+  { name: "Steering Motor",               category: "gearbox", img: image("stearing_motor.jpg"),                description: "Electric power steering motor for kids' ride-on cars. Direct OEM-compatible replacement." },
+  { name: "Steering Motor V3",            category: "gearbox", img: image("stearing_motor3.jpg"),               description: "Third-generation steering motor with improved torque and quieter gear meshing." },
+  { name: "Gearbox Motor 12V",            category: "gearbox", img: image("gearbox_motor_12v.png"),             description: "12V DC gearbox motor with integrated reduction gears for ride-on car wheel drive." },
+  { name: "Gear Shift Knob",              category: "gearbox", img: image("gear_shift_knob.png"),               description: "Decorative gear shift knob for ride-on toy car dashboards. Plastic, easy to install." },
   // Accelerators / Bike
-  { name: "Hand Accelerator", category: "bike", img: image("hand_accelarator.jpg") },
-  { name: "Accelerator Paddle", category: "bike", img: image("accelerator_paddle.jpg") },
-  { name: "Bike Hand Accelerator", category: "bike", img: image("bike_hand_accelerator.png") },
-  { name: "Carburetor", category: "bike", img: image("carburetor.png") },
+  { name: "Hand Accelerator",             category: "bike", img: image("hand_accelarator.jpg"),                 description: "Handlebar-mounted hand throttle for electric ride-on bikes and scooters. Variable speed." },
+  { name: "Accelerator Paddle",           category: "bike", img: image("accelerator_paddle.jpg"),               description: "Foot pedal accelerator for ride-on cars. Press to go, release to stop." },
+  { name: "Bike Hand Accelerator",        category: "bike", img: image("bike_hand_accelerator.png"),            description: "Twist-grip throttle handle for electric bikes. Compatible with most 6V–24V motor controllers." },
+  { name: "Carburetor",                   category: "bike", img: image("carburetor.png"),                       description: "Toy bike carburetor part — decorative or functional replacement for specific petrol-look ride-on models." },
   // Music Boards
-  { name: "Music Board", category: "music", img: image("music_board.jpg") },
-  { name: "Music Board (Black)", category: "music", img: image("music_black.jpg") },
-  { name: "Round Music Board", category: "music", img: image("roundmusic_3.jpg") },
-  { name: "Round Music Board V5", category: "music", img: image("roundmusic_board5.jpg") },
-  { name: "LED Music Board", category: "music", img: image("music_board_led.png") },
-  { name: "Round Music Board USB", category: "music", img: image("round_music_usb.png") },
-  { name: "Music Control Panel", category: "music", img: image("music_control_panel.png") },
+  { name: "Music Board",                  category: "music", img: image("music_board.jpg"),                     description: "Toy music control board with pre-loaded engine sounds, horn, and music playback over speaker." },
+  { name: "Music Board (Black)",          category: "music", img: image("music_black.jpg"),                     description: "Black-PCB music board variant with USB and SD card support for custom audio on ride-on toys." },
+  { name: "Round Music Board",            category: "music", img: image("roundmusic_3.jpg"),                    description: "Circular music board with centre speaker mount. Compact design for smaller ride-on vehicles." },
+  { name: "Round Music Board V5",         category: "music", img: image("roundmusic_board5.jpg"),               description: "Version 5 round music board with enhanced audio chip and Bluetooth connectivity support." },
+  { name: "LED Music Board",              category: "music", img: image("music_board_led.png"),                 description: "Music board with integrated LED control outputs for synchronized lights and sound effects." },
+  { name: "Round Music Board USB",        category: "music", img: image("round_music_usb.png"),                 description: "Round music board with USB port for playing MP3 files from a USB drive on ride-on toys." },
+  { name: "Music Control Panel",          category: "music", img: image("music_control_panel.png"),             description: "Dashboard-mounted music control panel with play, skip, volume, and horn buttons for kids' cars." },
   // Chargers
-  { name: "Big Charging Circuit", category: "charger", img: image("bigcharging_circuit.jpg") },
-  { name: "Small Charging Circuit", category: "charger", img: image("smallcharging_circuit.jpg") },
-  { name: "12V Charger", category: "charger", img: image("12v_charger.jpg") },
-  { name: "Battery Charger", category: "charger", img: image("battery_charger.png") },
-  { name: "Petrol Bike Charger", category: "charger", img: image("petrol_bike_charger.png") },
-  { name: "Dirt Bike Charger", category: "charger", img: image("dirt_bike_charger.png") },
-  { name: "Scooter Charger Adapter", category: "charger", img: image("scooter_charger_adapter.png") },
+  { name: "Big Charging Circuit",         category: "charger", img: image("bigcharging_circuit.jpg"),           description: "High-capacity charging circuit board for 12V/24V sealed lead-acid batteries in ride-on toys." },
+  { name: "Small Charging Circuit",       category: "charger", img: image("smallcharging_circuit.jpg"),         description: "Compact charging circuit for 6V SLA batteries. Built-in overcharge protection." },
+  { name: "12V Charger",                  category: "charger", img: image("12v_charger.jpg"),                   description: "Wall-plug 12V DC charger for ride-on car batteries. Auto cut-off when fully charged." },
+  { name: "Battery Charger",              category: "charger", img: image("battery_charger.png"),               description: "Universal battery charger for 6V and 12V toy car batteries. LED charge indicator included." },
+  { name: "Petrol Bike Charger",          category: "charger", img: image("petrol_bike_charger.png"),           description: "Charger designed for petrol-look electric bikes with standard 3-pin barrel connector." },
+  { name: "Dirt Bike Charger",            category: "charger", img: image("dirt_bike_charger.png"),             description: "Dedicated charger for dirt bike style ride-on toys. 12V with trickle charge final stage." },
+  { name: "Scooter Charger Adapter",      category: "charger", img: image("scooter_charger_adapter.png"),       description: "Charging adapter for electric scooters with specific barrel or round-pin connector types." },
   // Batteries
-  { name: "Battery Pack", category: "battery", img: image("battery_pack.png") },
-  { name: "Battery Clips", category: "battery", img: image("battery_clips.png") },
-  { name: "Panja Set", category: "battery", img: image("panja_set.png") },
-  { name: "20A Fuse", category: "battery", img: image("fuse_20a.png") },
-  { name: "12V 7.5Ah Battery", category: "battery", img: image("battery_12v_7ah.png") },
-  { name: "6V 4.5Ah VRLA Battery", category: "battery", img: image("battery_6v_4ah.png") },
-  { name: "18650 2200mAh Cell", category: "battery", img: image("battery_18650_2200mah.png") },
-  { name: "32700 LiFePO4 Cells", category: "battery", img: image("battery_32700_lifepo4.png") },
-  { name: "18650 Li-ion Cell", category: "battery", img: image("battery_18650_samsung.png") },
+  { name: "Battery Pack",                 category: "battery", img: image("battery_pack.png"),                  description: "Pre-assembled SLA battery pack for direct swap into compatible ride-on car models." },
+  { name: "Battery Clips",                category: "battery", img: image("battery_clips.png"),                 description: "Heavy-duty battery terminal clips and connectors for securing battery leads in ride-on toys." },
+  { name: "Panja Set",                    category: "battery", img: image("panja_set.png"),                     description: "5-finger panja connector set for battery-to-board wiring in ride-on cars. Secure crimp fit." },
+  { name: "20A Fuse",                     category: "battery", img: image("fuse_20a.png"),                      description: "20 Amp blade fuse for short-circuit protection in 12V/24V ride-on vehicle power circuits." },
+  { name: "12V 7.5Ah Battery",            category: "battery", img: image("battery_12v_7ah.png"),               description: "12V 7.5Ah sealed lead-acid (SLA) VRLA battery — standard replacement for most ride-on cars." },
+  { name: "6V 4.5Ah VRLA Battery",        category: "battery", img: image("battery_6v_4ah.png"),                description: "6V 4.5Ah VRLA battery for smaller ride-on cars and baby quad bikes. Maintenance-free." },
+  { name: "18650 2200mAh Cell",           category: "battery", img: image("battery_18650_2200mah.png"),         description: "18650 Li-ion rechargeable cell (2200mAh) for custom battery pack builds and power banks." },
+  { name: "32700 LiFePO4 Cells",          category: "battery", img: image("battery_32700_lifepo4.png"),         description: "32700 LiFePO4 cylindrical cells — high cycle life, safe chemistry for DIY eBike packs." },
+  { name: "18650 Li-ion Cell",            category: "battery", img: image("battery_18650_samsung.png"),         description: "Samsung 18650 Li-ion cell with high discharge rating. Ideal for performance battery builds." },
   // Speakers
-  { name: "Speaker", category: "speaker", img: image("speaker.jpg") },
-  { name: "Speaker V2", category: "speaker", img: image("speaker_2.jpg") },
-  { name: "Big Speaker", category: "speaker", img: image("big_speaker.jpg") },
+  { name: "Speaker",                      category: "speaker", img: image("speaker.jpg"),                       description: "Standard round speaker for ride-on toy music boards. 4Ω, 3W output for clear audio." },
+  { name: "Speaker V2",                   category: "speaker", img: image("speaker_2.jpg"),                     description: "Upgraded speaker with improved bass response for ride-on car music and sound systems." },
+  { name: "Big Speaker",                  category: "speaker", img: image("big_speaker.jpg"),                   description: "Large-diameter speaker for louder audio output in bigger ride-on vehicles and go-karts." },
   // Switches & Keys
-  { name: "Key Set", category: "switch", img: image("key_set1.jpg") },
-  { name: "Power Button", category: "switch", img: image("power_button.png") },
-  { name: "Direction Switch", category: "switch", img: image("direction_switch.png") },
-  { name: "Round Rocker Switch", category: "switch", img: image("round_rocker_switch.png") },
-  { name: "BMW Model Switch", category: "switch", img: image("bmw_model_switch.png") },
+  { name: "Key Set",                      category: "switch", img: image("key_set1.jpg"),                       description: "Ignition key set for ride-on cars. Includes key barrel and two matching keys for power on/off." },
+  { name: "Power Button",                 category: "switch", img: image("power_button.png"),                   description: "Latching push-button power switch for ride-on vehicle main power circuit." },
+  { name: "Direction Switch",             category: "switch", img: image("direction_switch.png"),               description: "3-position direction switch (Forward/Off/Reverse) for ride-on car gear selection." },
+  { name: "Round Rocker Switch",          category: "switch", img: image("round_rocker_switch.png"),            description: "Circular rocker switch for panel mounting in ride-on dashboards and scooter controls." },
+  { name: "BMW Model Switch",             category: "switch", img: image("bmw_model_switch.png"),               description: "BMW-logo style ignition switch for compatible ride-on car models. OEM style fit." },
   // Wiring
-  { name: "Normal Wiring Set", category: "wiring", img: image("wiring_set.png") },
-  { name: "Multi Wiring Set", category: "wiring", img: image("multi_wiring_set.png") },
+  { name: "Normal Wiring Set",            category: "wiring", img: image("wiring_set.png"),                     description: "Standard wiring harness set for ride-on cars. Includes main loom connectors and terminals." },
+  { name: "Multi Wiring Set",             category: "wiring", img: image("multi_wiring_set.png"),               description: "Complete multi-wire harness kit for full electrical replacement in ride-on toy vehicles." },
 ];
 
 const categories = [
@@ -363,13 +380,12 @@ function Catalog() {
                   <h3 className="text-sm font-semibold leading-tight">{p.name}</h3>
                   <div className="mt-1 text-xs font-medium text-brand">In Stock</div>
                 </div>
-                <a
-                  href={`https://wa.me/917903913346?text=I%20want%20${encodeURIComponent(p.name)}`}
-                  target="_blank" rel="noopener"
-                  className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-brand px-3 py-2 text-xs font-semibold text-brand-foreground transition-transform hover:scale-[1.02]"
+                <button
+                  onClick={() => window.open(waEnquiry(p.name, p.description, p.img), "_blank")}
+                  className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-brand px-3 py-2 text-xs font-semibold text-brand-foreground transition-transform hover:scale-[1.02] w-full"
                 >
-                  <MessageCircle className="h-3.5 w-3.5" /> Order
-                </a>
+                  <MessageCircle className="h-3.5 w-3.5" /> Enquire
+                </button>
               </div>
             ))}
           </div>
@@ -413,14 +429,12 @@ function Catalog() {
                     <h3 className="text-xs font-semibold leading-tight">{item.name}</h3>
                     <div className="mt-0.5 text-[10px] font-medium text-brand">Available</div>
                   </div>
-                  <a
-                    href={`https://wa.me/917903913346?text=I%20need%20a%20DIY%20component%3A%20${encodeURIComponent(item.name)}`}
-                    target="_blank"
-                    rel="noopener"
-                    className="mt-2 inline-flex items-center justify-center gap-1 rounded-lg bg-gradient-brand px-2 py-1.5 text-[10px] font-semibold text-brand-foreground transition-transform hover:scale-[1.02]"
+                  <button
+                    onClick={() => window.open(waEnquiry(item.name, item.description, item.img), "_blank")}
+                    className="mt-2 inline-flex items-center justify-center gap-1 rounded-lg bg-gradient-brand px-2 py-1.5 text-[10px] font-semibold text-brand-foreground transition-transform hover:scale-[1.02] w-full"
                   >
                     <MessageCircle className="h-3 w-3" /> Enquire
-                  </a>
+                  </button>
                 </div>
               ))}
             </div>
