@@ -404,7 +404,7 @@ function Modal({ open, onClose, children }: { open: boolean; onClose: () => void
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.97 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
-            className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border border-border bg-gradient-card shadow-elegant overflow-hidden"
+            className="w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl border border-border bg-gradient-card shadow-elegant overflow-y-auto max-h-[92dvh] sm:max-h-[88vh]"
             onClick={(e) => e.stopPropagation()}
           >
             {children}
@@ -787,32 +787,41 @@ export function Reviews() {
 
               <div>
                 <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                  Photo <span className="normal-case font-normal text-muted-foreground/60">(optional)</span>
+                  Add a Photo <span className="normal-case font-normal text-muted-foreground/60">(optional)</span>
                 </label>
                 {wImagePreview ? (
-                  <div className="relative inline-block">
-                    <img
-                      src={wImagePreview}
-                      alt="Preview"
-                      className="h-24 w-24 rounded-xl object-cover border border-border shadow-sm"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => { setWImage(null); if (wImagePreview) URL.revokeObjectURL(wImagePreview); setWImagePreview(null); }}
-                      className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground shadow-sm hover:scale-110 transition-transform"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                    <p className="mt-1.5 text-[11px] text-muted-foreground">{wImage?.name}</p>
+                  <div className="flex items-start gap-4">
+                    <div className="relative shrink-0">
+                      <img
+                        src={wImagePreview}
+                        alt="Preview"
+                        className="h-20 w-20 rounded-xl object-cover border-2 border-brand/30 shadow-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => { setWImage(null); if (wImagePreview) URL.revokeObjectURL(wImagePreview); setWImagePreview(null); }}
+                        className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-destructive text-white shadow hover:scale-110 transition-transform"
+                      >
+                        <X className="h-3.5 w-3.5" />
+                      </button>
+                    </div>
+                    <div className="flex-1 min-w-0 pt-1">
+                      <p className="text-sm font-medium text-foreground truncate">{wImage?.name}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">Photo ready to submit</p>
+                    </div>
                   </div>
                 ) : (
-                  <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-border bg-surface-elevated px-4 py-3.5 text-sm text-muted-foreground hover:border-brand/50 hover:text-brand hover:bg-brand/5 transition-all">
-                    <ImagePlus className="h-5 w-5 shrink-0" />
-                    <span>Tap to upload a photo</span>
+                  <label className="group flex cursor-pointer flex-col items-center justify-center gap-2.5 rounded-2xl border-2 border-dashed border-brand/40 bg-brand/5 px-4 py-6 text-center hover:border-brand hover:bg-brand/10 active:bg-brand/10 transition-all">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/15 group-hover:bg-brand/25 transition-colors">
+                      <ImagePlus className="h-6 w-6 text-brand" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-brand">Upload a photo</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">JPG, PNG, HEIC — up to 8 MB</p>
+                    </div>
                     <input
                       type="file"
-                      accept="image/*"
-                      capture="environment"
+                      accept="image/*,image/heic,image/heif"
                       className="hidden"
                       onChange={handleImageChange}
                     />

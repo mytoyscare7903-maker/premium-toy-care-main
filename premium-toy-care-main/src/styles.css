@@ -73,9 +73,9 @@
 :root {
   --radius: 0.875rem;
   /* Premium clean white theme */
-  --background: oklch(99.2% 0.002 255);
-  --foreground: oklch(12% 0.025 258);
-  --surface: oklch(96.8% 0.004 255);
+  --background: oklch(100% 0 0);
+  --foreground: oklch(10% 0.025 258);
+  --surface: oklch(98.2% 0.003 255);
   --surface-elevated: oklch(100% 0 0);
   --card: oklch(100% 0 0);
   --card-foreground: oklch(12% 0.025 258);
@@ -177,17 +177,7 @@
   }
 
   body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      linear-gradient(oklch(0.55 0.010 255 / 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, oklch(0.55 0.010 255 / 0.035) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 20%, black, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 20%, black, transparent 75%);
+    display: none;
   }
 
   h1, h2, h3, h4 {
