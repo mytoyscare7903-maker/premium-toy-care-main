@@ -113,25 +113,31 @@ export function SpareCatalog() {
         </Reveal>
       </div>
 
-      <div className="relative bg-surface/40 py-2">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-10" />
+      <div className="relative bg-surface/20 py-3">
+        <div className="absolute left-0 top-0 bottom-0 w-28 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-28 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
         <div className="catalog-marquee-track">
           {[0, 1].map((group) => (
             <div className="catalog-marquee-group" key={group} aria-hidden={group === 1}>
               {items.map((item, i) => (
-                <div key={`${group}-${item.name}`} className="w-56 shrink-0 rounded-2xl border border-border bg-gradient-card p-3 shadow-card">
-                  <div className="aspect-square rounded-xl overflow-hidden bg-white/90 flex items-center justify-center p-2">
+                <div
+                  key={`${group}-${item.name}`}
+                  className="w-52 shrink-0 rounded-2xl border border-border bg-white p-3 shadow-[0_2px_12px_-4px_oklch(0.02_0_0/0.08)] hover:shadow-[0_6px_20px_-6px_oklch(0.02_0_0/0.13)] hover:-translate-y-0.5 hover:border-brand/20 transition-all duration-200 group"
+                >
+                  <div className="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-surface to-white flex items-center justify-center p-3 border border-border/50 group-hover:border-brand/15 transition-colors">
                     <img
                       src={item.img}
                       alt={item.name}
                       loading={group === 0 ? "eager" : "lazy"}
                       decoding="async"
                       fetchPriority={group === 0 && i < 4 ? "high" : "auto"}
-                      className="w-full h-full object-contain block"
+                      className="w-full h-full object-contain block transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
-                  <div className="px-1 pt-3 pb-1 text-sm font-medium">{item.name}</div>
+                  <div className="px-1 pt-3 pb-1">
+                    <p className="text-sm font-semibold text-foreground truncate leading-tight">{item.name}</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">Genuine Part</p>
+                  </div>
                 </div>
               ))}
             </div>

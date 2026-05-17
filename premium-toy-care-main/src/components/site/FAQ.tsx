@@ -5,17 +5,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import faqFamily from "@/assets/faq-family.png";
 
 const faqs = [
+<<<<<<< HEAD
   { q: "What if my toy is not working?", a: "Don't worry. Our expert technicians will diagnose the issue and provide a quick, reliable repair to get it running like new." },
   { q: "Do you use genuine parts?", a: "Yes — we use only genuine, high-quality spare parts to ensure safe, reliable, and long-lasting performance for every repair." },
   { q: "How much time is required?", a: "Repair time depends on the issue, but most repairs are completed within 1 day." },
   { q: "Do you offer doorstep pickup and drop?", a: "Yes, we offer doorstep pickup and drop. Transportation charges are included in the service cost." },
   { q: "Is there any warranty after repair?", a: "Yes, we offer a limited warranty on repairs. Warranty can be claimed by visiting our workshop." },
+=======
+  { q: "What if my toy is not working?",          a: "Don't worry. Our expert technicians will diagnose the issue and provide a quick, reliable repair to get it running like new." },
+  { q: "Do you use genuine parts?",               a: "Yes — we use only genuine, high-quality spare parts to ensure safe, reliable, and long-lasting performance for every repair." },
+  { q: "How much time is required?",              a: "Repair time depends on the issue, but most repairs are completed within 1–3 days." },
+  { q: "Do you offer doorstep pickup and drop?",  a: "Yes, we offer doorstep pickup and drop. Transportation charges are included in the service cost." },
+  { q: "Is there any warranty after repair?",     a: "Yes, we offer a limited warranty on repairs. Warranty can be claimed by visiting our workshop." },
+>>>>>>> 75af10f (Enhance home page card UI with modern, premium design elements)
 ];
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
+
   return (
-    <section id="faq" className="py-24 bg-surface/30 border-y border-border">
+    <section id="faq" className="py-24 bg-surface/20 border-y border-border">
       <div className="container mx-auto px-4">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -40,30 +49,54 @@ export function FAQ() {
           </Reveal>
 
           <div className="space-y-3">
-            {faqs.map((f, i) => (
-              <Reveal key={f.q} delay={i * 0.05}>
-                <div className="rounded-2xl border border-border bg-gradient-card overflow-hidden">
-                  <button onClick={() => setOpen(open === i ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 p-5 text-left">
-                    <span className="font-medium text-foreground">{f.q}</span>
-                    <ChevronDown className={`h-5 w-5 text-brand shrink-0 transition-transform ${open === i ? "rotate-180" : ""}`} />
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {open === i && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">{f.a}</div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </Reveal>
-            ))}
+            {faqs.map((f, i) => {
+              const isOpen = open === i;
+              return (
+                <Reveal key={f.q} delay={i * 0.05}>
+                  <div
+                    className={`rounded-2xl border bg-white overflow-hidden shadow-[0_2px_10px_-4px_oklch(0.02_0_0/0.07)] transition-all duration-300 ${
+                      isOpen
+                        ? "border-brand/30 shadow-[0_6px_24px_-6px_oklch(0.74_0.18_55/0.18)]"
+                        : "border-border hover:border-border/60 hover:shadow-[0_4px_16px_-6px_oklch(0.02_0_0/0.10)]"
+                    }`}
+                  >
+                    <button
+                      onClick={() => setOpen(isOpen ? null : i)}
+                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                    >
+                      <div className="flex items-center gap-3">
+                        {/* Number badge */}
+                        <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[10px] font-bold transition-colors ${
+                          isOpen ? "bg-brand text-white" : "bg-surface text-muted-foreground"
+                        }`}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className={`font-semibold text-sm leading-snug transition-colors ${isOpen ? "text-brand" : "text-foreground"}`}>
+                          {f.q}
+                        </span>
+                      </div>
+                      <ChevronDown className={`h-4 w-4 shrink-0 transition-all duration-300 ${isOpen ? "rotate-180 text-brand" : "text-muted-foreground"}`} />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-5 pb-5 pt-1 text-sm text-muted-foreground leading-relaxed border-t border-brand/10 ml-5 mr-5 mb-0 pt-3">
+                            {f.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </div>

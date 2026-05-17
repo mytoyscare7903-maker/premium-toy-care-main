@@ -1,13 +1,13 @@
-import { MessageCircle, AlertCircle } from "lucide-react";
+import { MessageCircle, AlertCircle, Clock } from "lucide-react";
 import bike from "@/assets/rent-bike.jpg";
 import rc from "@/assets/rent-rc.jpg";
 import scooter from "@/assets/rent-scooter.jpg";
 import { Reveal } from "./Reveal";
 
 const items = [
-  { img: bike, title: "Kids Electric Bike", price: "₹499", text: "Kids%20Electric%20Bike" },
-  { img: rc, title: "RC Racing Car", price: "₹299", text: "RC%20Racing%20Car" },
-  { img: scooter, title: "Baby Scooter", price: "₹399", text: "Baby%20Scooter" },
+  { img: bike,    title: "Kids Electric Bike", price: "₹499", text: "Kids%20Electric%20Bike",  tag: "Most Popular" },
+  { img: rc,      title: "RC Racing Car",       price: "₹299", text: "RC%20Racing%20Car",        tag: "Fun & Fast" },
+  { img: scooter, title: "Baby Scooter",        price: "₹399", text: "Baby%20Scooter",           tag: "Easy Ride" },
 ];
 
 export function Rent() {
@@ -22,10 +22,9 @@ export function Rent() {
             </h2>
             <p className="mt-4 text-muted-foreground">Premium ride-on toys delivered to your door — try before you buy.</p>
 
-            {/* Service status banner */}
-            <div className="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-yellow-500/30 bg-yellow-500/10 px-5 py-3 text-sm font-medium text-yellow-400">
+            <div className="mt-6 inline-flex items-center gap-2.5 rounded-xl border border-amber-400/30 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-700">
               <AlertCircle className="h-4 w-4 flex-shrink-0" />
-              Service Not Available Now
+              Service Temporarily Unavailable
             </div>
           </div>
         </Reveal>
@@ -33,19 +32,54 @@ export function Rent() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.1}>
-              <div className="group rounded-3xl border border-border bg-gradient-card p-5 shadow-card transition-all duration-300 h-full flex flex-col opacity-70">
-                <div className="aspect-square rounded-2xl overflow-hidden bg-white">
-                  <img src={item.img} alt={item.title} loading="lazy" className="w-full h-full object-contain" />
+              <div className="group relative rounded-3xl border border-border bg-white shadow-[0_2px_14px_-4px_oklch(0.02_0_0/0.08),0_1px_4px_-2px_oklch(0.02_0_0/0.04)] transition-all duration-300 h-full flex flex-col overflow-hidden">
+
+                {/* Image area */}
+                <div className="relative aspect-[4/3] overflow-hidden bg-surface/40">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover opacity-75 transition-transform duration-500 group-hover:scale-105"
+                  />
+
+                  {/* Gradient overlay bottom */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+
+                  {/* Tag badge top-left */}
+                  <span className="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur-sm border border-white/60 px-3 py-1 text-[11px] font-bold text-foreground shadow-sm">
+                    {item.tag}
+                  </span>
+
+                  {/* Price badge bottom-right */}
+                  <div className="absolute bottom-3 right-3 flex items-baseline gap-1 rounded-xl bg-white/90 backdrop-blur-sm border border-white/60 px-3 py-1.5 shadow-sm">
+                    <span className="text-base font-bold text-foreground">{item.price}</span>
+                    <span className="text-[11px] text-muted-foreground font-normal">/day</span>
+                  </div>
+
+                  {/* Unavailable overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-[1px]">
+                    <div className="flex items-center gap-2 rounded-xl bg-white/85 border border-border px-4 py-2 shadow-md">
+                      <Clock className="h-4 w-4 text-amber-500" />
+                      <span className="text-xs font-semibold text-foreground">Coming Soon</span>
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-5 flex items-center justify-between">
-                  <h3 className="font-display font-semibold text-lg">{item.title}</h3>
-                  <div className="text-brand font-bold">{item.price}<span className="text-xs text-muted-foreground font-normal">/day</span></div>
+
+                {/* Card body */}
+                <div className="p-5 flex-1 flex flex-col">
+                  <h3 className="font-display font-bold text-lg text-foreground">{item.title}</h3>
+                  <p className="mt-1 text-xs text-muted-foreground">Doorstep delivery · All accessories included</p>
+
+                  <div className="mt-auto pt-4">
+                    <button
+                      disabled
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface px-4 py-3 text-sm font-semibold text-muted-foreground cursor-not-allowed select-none opacity-60"
+                    >
+                      <MessageCircle className="h-4 w-4" /> Currently Unavailable
+                    </button>
+                  </div>
                 </div>
-                <a href={`https://wa.me/916204594205?text=Hello%20MyToysCare,%20I%20want%20to%20rent%20${item.text}`}
-                  target="_blank" rel="noopener"
-                  className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-surface-elevated px-4 py-3 text-sm font-semibold text-muted-foreground cursor-not-allowed select-none">
-                  <MessageCircle className="h-4 w-4" /> Currently Unavailable
-                </a>
               </div>
             </Reveal>
           ))}

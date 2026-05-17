@@ -2,51 +2,62 @@ import { ShieldCheck, Wrench, Truck, Award, Clock, Users, IndianRupee, BadgeChec
 import { Reveal } from "./Reveal";
 
 const badges = [
-  { Icon: Award, label: "10+ Years Experience" },
-  { Icon: Users, label: "5,000+ Happy Customers" },
+  { Icon: Award,       label: "10+ Years Experience" },
+  { Icon: Users,       label: "5,000+ Happy Customers" },
   { Icon: ShieldCheck, label: "Genuine Parts Only" },
-  { Icon: Wrench, label: "Expert Technicians" },
-  { Icon: Truck, label: "Doorstep Pickup" },
-  { Icon: Clock, label: "Fast Service" },
+  { Icon: Wrench,      label: "Expert Technicians" },
+  { Icon: Truck,       label: "Doorstep Pickup" },
+  { Icon: Clock,       label: "Fast Service" },
+];
+
+const promises = [
+  { Icon: ShieldCheck,   title: "Guaranteed Warranty",     desc: "Every repair backed by a service warranty" },
+  { Icon: Truck,         title: "Doorstep Pickup & Drop",  desc: "Safe and reliable delivery support" },
+  { Icon: IndianRupee,   title: "Best Price Guarantee",    desc: "Competitive pricing, no hidden charges" },
+  { Icon: BadgeCheck,    title: "Warranty on Repair",      desc: "Quality assured on every repair job" },
 ];
 
 export function TrustBar() {
   return (
-    <section className="py-12 border-y border-border bg-surface/30">
+    <section className="py-14 border-y border-border bg-surface/20">
       <div className="container mx-auto px-4">
         <Reveal>
-          <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-8">
+          <p className="text-center text-xs uppercase tracking-[0.2em] text-muted-foreground mb-10">
             Trusted by parents across Bangalore
           </p>
-          {/* Featured promise tags */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto mb-10">
-            {[
-              { Icon: ShieldCheck, title: "Guaranteed Warranty", desc: "Every repair backed by a service warranty" },
-              { Icon: Truck, title: "Doorstep Pickup & Drop", desc: "Safe and Reliable Delivery Support" },
-              { Icon: IndianRupee, title: "Best Price Guarantee", desc: "Competitive pricing with no hidden charges" },
-              { Icon: BadgeCheck, title: "Warranty on Repair", desc: "Quality assured on every repair job" },
-            ].map(({ Icon, title, desc }) => (
+
+          {/* ── Promise cards ── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
+            {promises.map(({ Icon, title, desc }) => (
               <div
                 key={title}
-                className="flex items-center gap-4 rounded-2xl border border-brand/30 bg-gradient-to-br from-brand/10 to-brand-glow/5 backdrop-blur-md px-5 py-4 shadow-card"
+                className="group relative flex items-start gap-4 rounded-2xl border border-border bg-white px-5 py-5 shadow-[0_2px_14px_-4px_oklch(0.02_0_0/0.08),0_1px_4px_-2px_oklch(0.02_0_0/0.04)] hover:shadow-[0_8px_32px_-8px_oklch(0.02_0_0/0.12),0_2px_8px_-4px_oklch(0.02_0_0/0.06)] hover:-translate-y-0.5 hover:border-brand/25 transition-all duration-300 overflow-hidden"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand/20 text-brand border border-brand/30">
-                  <Icon className="h-6 w-6" />
+                {/* Subtle top-left glow accent */}
+                <div className="absolute -top-6 -left-6 h-16 w-16 rounded-full bg-brand/10 blur-2xl pointer-events-none" />
+
+                <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-brand/20 to-brand/8 text-brand border border-brand/15 group-hover:from-brand/28 group-hover:to-brand/12 transition-colors">
+                  <Icon className="h-5 w-5" />
                 </div>
-                <div className="text-left">
-                  <div className="text-sm font-bold text-foreground">{title}</div>
-                  <div className="text-xs text-muted-foreground mt-0.5">{desc}</div>
+                <div className="relative">
+                  <div className="text-sm font-bold text-foreground leading-tight">{title}</div>
+                  <div className="text-xs text-muted-foreground mt-1 leading-relaxed">{desc}</div>
                 </div>
               </div>
             ))}
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+
+          {/* ── Trust badge pills ── */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {badges.map(({ Icon, label }) => (
-              <div key={label} className="flex flex-col items-center text-center gap-2">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-elevated border border-border text-brand">
+              <div
+                key={label}
+                className="group flex flex-col items-center text-center gap-2.5 rounded-2xl border border-border/70 bg-white px-3 py-4 shadow-sm hover:border-brand/25 hover:shadow-[0_4px_16px_-4px_oklch(0.02_0_0/0.10)] hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand border border-brand/12 group-hover:from-brand/22 group-hover:to-brand/10 transition-colors">
                   <Icon className="h-5 w-5" />
                 </div>
-                <span className="text-xs font-medium text-muted-foreground">{label}</span>
+                <span className="text-xs font-medium text-muted-foreground leading-tight">{label}</span>
               </div>
             ))}
           </div>
