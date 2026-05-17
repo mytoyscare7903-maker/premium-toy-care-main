@@ -1,9 +1,36 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Star, Edit2, EyeOff, Eye, Trash2, Lock, X, Check, Shield, MoreVertical, ExternalLink, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star, Edit2, EyeOff, Eye, Trash2, Lock, X, Check, Shield, MoreVertical, ExternalLink, Loader2, ChevronLeft, ChevronRight, ImagePlus } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "../../lib/supabase";
 import type { DbReview } from "../../lib/supabase";
+
+/* ─── Image compression ──────────────────────────────────────── */
+function compressImage(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("Failed to read file"));
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => reject(new Error("Failed to load image"));
+      img.onload = () => {
+        const MAX = 640;
+        let { width: w, height: h } = img;
+        if (w > MAX || h > MAX) {
+          if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
+          else { w = Math.round(w * MAX / h); h = MAX; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext("2d")!.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", 0.78));
+      };
+      img.src = e.target!.result as string;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 /* ─── Types ─────────────────────────────────────────────────── */
 interface Review extends DbReview {
@@ -230,6 +257,18 @@ function ReviewCard({
             </button>
           )}
         </div>
+
+        {/* Review photo */}
+        {review.image_url && (
+          <div className="mt-3 rounded-xl overflow-hidden border border-border">
+            <img
+              src={review.image_url}
+              alt={`Photo from ${review.name}`}
+              className="w-full h-36 object-cover"
+              loading="lazy"
+            />
+          </div>
+        )}
       </div>
     </motion.div>
   );
@@ -394,6 +433,19 @@ export function Reviews() {
   const [wText, setWText] = useState("");
   const [wSuccess, setWSuccess] = useState(false);
   const [wSubmitting, setWSubmitting] = useState(false);
+  const [wImage, setWImage] = useState<File | null>(null);
+  const [wImagePreview, setWImagePreview] = useState<string | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) {
+      alert("Please choose an image under 8 MB.");
+      return;
+    }
+    setWImage(file);
+    setWImagePreview(URL.createObjectURL(file));
+  };
 
   const [editTarget, setEditTarget] = useState<Review | null>(null);
   const [eText, setEText] = useState("");
@@ -486,6 +538,15 @@ export function Reviews() {
     if (!wName.trim() || !wText.trim()) return;
     setWSubmitting(true);
 
+    let imageUrl: string | undefined;
+    if (wImage) {
+      try {
+        imageUrl = await compressImage(wImage);
+      } catch {
+        // Image compression failed — proceed without image
+      }
+    }
+
     const { error } = await supabase.from("reviews").insert({
       name: wName.trim(),
       date: new Date().toISOString(),
@@ -493,6 +554,7 @@ export function Reviews() {
       text: wText.trim(),
       hidden: false,
       verified: true,
+      ...(imageUrl ? { image_url: imageUrl } : {}),
     });
 
     setWSubmitting(false);
@@ -501,9 +563,11 @@ export function Reviews() {
       return;
     }
     setWSuccess(true);
+    if (wImagePreview) URL.revokeObjectURL(wImagePreview);
     setTimeout(() => {
       setWSuccess(false); setWriteOpen(false);
       setWName(""); setWText(""); setWStars(5);
+      setWImage(null); setWImagePreview(null);
     }, 2200);
   };
 
@@ -719,6 +783,41 @@ export function Reviews() {
                   placeholder="Tell other parents about your experience..."
                   className="w-full rounded-xl border border-border bg-surface-elevated px-4 py-3 text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-brand resize-none transition" />
                 <p className="text-[11px] text-muted-foreground mt-1 text-right">{wText.length} chars</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                  Photo <span className="normal-case font-normal text-muted-foreground/60">(optional)</span>
+                </label>
+                {wImagePreview ? (
+                  <div className="relative inline-block">
+                    <img
+                      src={wImagePreview}
+                      alt="Preview"
+                      className="h-24 w-24 rounded-xl object-cover border border-border shadow-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => { setWImage(null); if (wImagePreview) URL.revokeObjectURL(wImagePreview); setWImagePreview(null); }}
+                      className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground shadow-sm hover:scale-110 transition-transform"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                    <p className="mt-1.5 text-[11px] text-muted-foreground">{wImage?.name}</p>
+                  </div>
+                ) : (
+                  <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-border bg-surface-elevated px-4 py-3.5 text-sm text-muted-foreground hover:border-brand/50 hover:text-brand hover:bg-brand/5 transition-all">
+                    <ImagePlus className="h-5 w-5 shrink-0" />
+                    <span>Tap to upload a photo</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      capture="environment"
+                      className="hidden"
+                      onChange={handleImageChange}
+                    />
+                  </label>
+                )}
               </div>
 
               <button type="submit" disabled={wSubmitting}

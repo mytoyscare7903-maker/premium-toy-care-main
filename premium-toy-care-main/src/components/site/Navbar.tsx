@@ -20,12 +20,29 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const { location } = useRouterState();
 
+  const isCatalog = location.pathname === "/catalog";
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // When scrolled on the white homepage: white frosted nav with dark text
+  // All other states (not scrolled, or on catalog): semi-transparent dark nav with white text
+  const isLightNav = scrolled && !isCatalog;
+
+  const navContainerClass = isLightNav
+    ? "bg-white/92 backdrop-blur-md shadow-sm border-slate-200/70"
+    : "bg-black/18 backdrop-blur-md border-white/12";
+
+  const linkClass = isLightNav
+    ? "px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand transition-colors rounded-lg hover:bg-slate-100"
+    : "px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/10";
+
+  const logoTextClass = isLightNav ? "text-slate-800" : "text-white";
+  const menuIconClass = isLightNav ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10";
 
   return (
     <header
@@ -35,9 +52,7 @@ export function Navbar() {
     >
       <div className="container mx-auto px-4">
         <nav
-          className={`flex items-center justify-between rounded-2xl border border-border px-4 py-3 transition-all duration-300 ${
-            scrolled ? "glass shadow-elegant" : "bg-surface/40 backdrop-blur-md"
-          }`}
+          className={`flex items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-300 ${navContainerClass}`}
         >
           <Link to="/" className="flex items-center gap-2 group">
             <img
@@ -48,7 +63,7 @@ export function Navbar() {
               onError={(e) => { e.currentTarget.src = logoFallback; }}
               className="h-13 w-13 object-contain drop-shadow-[0_0_16px_rgba(255,122,26,0.65)] group-hover:drop-shadow-[0_0_24px_rgba(255,122,26,0.90)] group-hover:scale-110 transition-all duration-300"
             />
-            <span className="font-display text-lg font-bold tracking-tight">
+            <span className={`font-display text-lg font-bold tracking-tight transition-colors duration-300 ${logoTextClass}`}>
               MyToys<span className="text-gradient-brand">Care</span>
             </span>
           </Link>
@@ -57,17 +72,14 @@ export function Navbar() {
             {links.map((l) => (
               <li key={l.label}>
                 {l.hash && location.pathname === l.to ? (
-                  <a
-                    href={l.hash}
-                    className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-brand transition-colors rounded-lg hover:bg-surface-elevated"
-                  >
+                  <a href={l.hash} className={linkClass}>
                     {l.label}
                   </a>
                 ) : (
                   <Link
                     to={l.to}
                     hash={l.hash?.replace("#", "")}
-                    className="px-3 py-2 text-sm font-medium text-muted-foreground hover:text-brand transition-colors rounded-lg hover:bg-surface-elevated"
+                    className={linkClass}
                   >
                     {l.label}
                   </Link>
@@ -87,7 +99,7 @@ export function Navbar() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="lg:hidden rounded-lg p-2 text-foreground hover:bg-surface-elevated"
+            className={`lg:hidden rounded-lg p-2 transition-colors ${menuIconClass}`}
             aria-label="Menu"
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -95,14 +107,18 @@ export function Navbar() {
         </nav>
 
         {open && (
-          <div className="lg:hidden mt-2 glass rounded-2xl p-4 animate-fade-in">
+          <div className={`lg:hidden mt-2 rounded-2xl p-4 ${isLightNav ? "bg-white shadow-elegant border border-slate-200/60" : "glass"}`}>
             <ul className="flex flex-col gap-1">
               {links.map((l) => (
                 <li key={l.label}>
                   <a
                     href={l.hash ? `${l.to}${l.hash}` : l.to}
                     onClick={() => setOpen(false)}
-                    className="block px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-brand hover:bg-surface-elevated rounded-lg"
+                    className={`block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                      isLightNav
+                        ? "text-slate-600 hover:text-brand hover:bg-slate-100"
+                        : "text-white/80 hover:text-white hover:bg-white/10"
+                    }`}
                   >
                     {l.label}
                   </a>
