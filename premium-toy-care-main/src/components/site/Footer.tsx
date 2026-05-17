@@ -17,7 +17,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Professional Toy Repair & Rental Service in Bangalore for kids bikes, ride-ons, RC cars and more.
+              Professional Toy & Hover board Repair & Rental Service in Bangalore for kids bikes, ride-ons, RC hobby cars ,  Hover board and more.
             </p>
           </div>
 

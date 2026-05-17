@@ -2,7 +2,7 @@ import { Wrench, BatteryCharging, Settings2, Truck, ArrowUpRight } from "lucide-
 import { Reveal } from "./Reveal";
 
 const services = [
-  { Icon: Wrench, title: "Toy Repair", desc: "Full repair for ride-on cars, RC toys, bikes and scooters of all brands." },
+  { Icon: Wrench, title: "Toy & Hover board Repair", desc: "Full repair for ride-on cars, RC toys, bikes and scooters & hover board of all brands." },
   { Icon: BatteryCharging, title: "Battery Replacement", desc: "Replace old batteries with reliable, child-safe power solutions." },
   { Icon: Settings2, title: "Maintenance", desc: "Regular servicing for longer life and consistently better performance." },
   { Icon: Truck, title: "Pickup & Drop", desc: "Convenient doorstep pickup and drop service across Bangalore." },

@@ -39,7 +39,7 @@ export function Hero() {
             Kids' Toys <span className="text-gradient-brand">Back to Life</span>
           </h1>
           <p className="mt-6 text-lg text-muted-foreground max-w-lg leading-relaxed">
-            Expert repair, genuine spare parts, and rental for ride-on cars, RC vehicles, scooters and bikes — backed by 10+ years of experience.
+            Expert repair, genuine spare parts, and rental for ride-on cars,Hover board, RC hobby car, scooters and bikes — backed by 10+ years of experience.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">

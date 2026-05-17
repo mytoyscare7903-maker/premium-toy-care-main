@@ -247,7 +247,7 @@
     padding-right: 1.25rem;
     will-change: transform;
     transform: translate3d(0, 0, 0);
-    animation: catalog-marquee 30s linear infinite;
+    animation: catalog-marquee 100s linear infinite;
   }
   @media (prefers-reduced-motion: reduce) {
     .catalog-marquee-group {

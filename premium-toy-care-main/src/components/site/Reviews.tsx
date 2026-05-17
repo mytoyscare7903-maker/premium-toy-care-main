@@ -615,7 +615,7 @@ export function Reviews() {
           <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="text-xs uppercase tracking-[0.2em] text-brand font-semibold mb-4">Customer Reviews</div>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold">
-              Loved by <span className="text-gradient-brand">Bangalore Parents</span>
+              Loved by <span className="text-gradient-brand">Indian Parents</span>
             </h2>
             <div className="mt-7 inline-flex items-center gap-4 rounded-2xl border border-border bg-gradient-card px-6 py-4 shadow-card">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand/15">
