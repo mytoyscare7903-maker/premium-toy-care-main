@@ -98,7 +98,7 @@ const items = [
 
 export function SpareCatalog() {
   return (
-    <section id="catalog-preview" className="py-24 bg-surface/30 border-y border-border overflow-hidden">
+    <section id="catalog-preview" className="py-24 bg-slate-900 text-white [&_*]:text-white border-y border-border overflow-hidden">
       <div className="container mx-auto px-4">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-12">
@@ -106,9 +106,9 @@ export function SpareCatalog() {
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold">
               Genuine <span className="text-gradient-brand">Spare Parts</span> Catalog
             </h2>
-            <p className="mt-4 text-muted-foreground">
-              Original parts for motherboards, remotes, batteries, gearboxes and more.
-            </p>
+            <p className="mt-4 text-slate-800 font-semibold text-base">
+  Original parts for motherboards, remotes, batteries, gearboxes and more.
+</p>
           </div>
         </Reveal>
       </div>
@@ -122,7 +122,7 @@ export function SpareCatalog() {
               {items.map((item, i) => (
                 <div
                   key={`${group}-${item.name}`}
-                  className="w-52 shrink-0 rounded-2xl border border-border bg-white p-3 shadow-[0_2px_12px_-4px_oklch(0.02_0_0/0.08)] hover:shadow-[0_6px_20px_-6px_oklch(0.02_0_0/0.13)] hover:-translate-y-0.5 hover:border-brand/20 transition-all duration-200 group"
+                  className="w-52 shrink-0 rounded-3xl border border-white/10 bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 backdrop-blur-xl p-3 shadow-[0_10px_40px_-12px_rgba(15,23,42,0.45)] hover:scale-[1.03] hover:border-orange-300/30 transition-all duration-300 group"
                 >
                   <div className="aspect-square rounded-xl overflow-hidden bg-gradient-to-br from-surface to-white flex items-center justify-center p-3 border border-border/50 group-hover:border-brand/15 transition-colors">
                     <img
@@ -135,8 +135,8 @@ export function SpareCatalog() {
                     />
                   </div>
                   <div className="px-1 pt-3 pb-1">
-                    <p className="text-sm font-semibold text-foreground truncate leading-tight">{item.name}</p>
-                    <p className="text-[11px] text-muted-foreground mt-0.5">Genuine Part</p>
+                    <p className="text-sm font-bold text-slate-100 truncate leading-tight drop-shadow-sm">{item.name}</p>
+                    <p className="text-[11px] text-slate-300 mt-0.5 font-medium">Genuine Part</p>
                   </div>
                 </div>
               ))}

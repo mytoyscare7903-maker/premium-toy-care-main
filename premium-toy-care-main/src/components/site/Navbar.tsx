@@ -107,7 +107,11 @@ export function Navbar() {
         </nav>
 
         {open && (
-          <div className={`lg:hidden mt-2 rounded-2xl p-4 ${isLightNav ? "bg-white shadow-elegant border border-slate-200/60" : "glass"}`}>
+          <div className={`lg:hidden mt-2 rounded-2xl p-4 ${
+  isLightNav
+    ? "bg-white shadow-elegant border border-slate-200/60"
+    : "bg-black/90 backdrop-blur-xl border border-white/10 shadow-2xl"
+}`}>
             <ul className="flex flex-col gap-1">
               {links.map((l) => (
                 <li key={l.label}>

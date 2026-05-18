@@ -20,7 +20,7 @@ export function BookContact() {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-surface/20 border-y border-border">
+    <section id="contact" className="py-24 bg-emerald-50 border-y border-border">
       <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10">
 
         {/* ── Left: form card ── */}

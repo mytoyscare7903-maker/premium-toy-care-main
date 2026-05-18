@@ -6,17 +6,18 @@ const CURRENT_YEAR = 2026;
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface/50 mt-20">
+    <footer className="border-t border-border bg-slate-950 mt-20">
       <div className="container mx-auto px-4 py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <Link to="/" className="flex items-center gap-2 mb-4">
               <img src="/logo.png" alt="MyToysCare logo" width={52} height={52} loading="lazy" onError={(e) => { e.currentTarget.src = logoFallback; }} className="h-13 w-13 object-contain drop-shadow-[0_0_16px_rgba(255,122,26,0.65)]" />
               <span className="font-display text-lg font-bold">
-                MyToys<span className="text-gradient-brand">Care</span>
-              </span>
+  <span className="text-white">MyToys</span>
+  <span className="text-orange-400">Care</span>
+</span>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-slate-200 leading-relaxed">
               Professional Toy & Hover board Repair & Rental Service in Bangalore for kids bikes, ride-ons, RC hobby cars ,  Hover board and more.
             </p>
           </div>
@@ -24,18 +25,18 @@ export function Footer() {
           <div>
             <h4 className="font-display font-semibold text-brand mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="/#home" className="text-muted-foreground hover:text-brand transition">Home</a></li>
-              <li><a href="/#services" className="text-muted-foreground hover:text-brand transition">Services</a></li>
-              <li><Link to="/catalog" className="text-muted-foreground hover:text-brand transition">Spare Parts</Link></li>
-              <li><a href="/#rent" className="text-muted-foreground hover:text-brand transition">Toys for Rent</a></li>
-              <li><a href="/#faq" className="text-muted-foreground hover:text-brand transition">FAQ</a></li>
+              <li><a href="/#home" className="text-gray-300 hover:text-brand transition">Home</a></li>
+              <li><a href="/#services" className="text-gray-300 hover:text-brand transition">Services</a></li>
+              <li><Link to="/catalog" className="text-gray-300 hover:text-brand transition">Spare Parts</Link></li>
+              <li><a href="/#rent" className="text-gray-300 hover:text-brand transition">Toys for Rent</a></li>
+              <li><a href="/#faq" className="text-gray-300 hover:text-brand transition">FAQ</a></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-display font-semibold text-brand mb-4">Contact Us</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="tel:+917903913346" className="flex items-start gap-2 text-muted-foreground hover:text-brand transition">
+              <li><a href="tel:+917903913346" className="flex items-start gap-2 text-gray-300 hover:text-brand transition">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0" /> +91 7903913346
               </a></li>
               <li><a href="https://maps.google.com/?q=Ramamurthy+Nagar+Bengaluru" target="_blank" rel="noopener" className="flex items-start gap-2 text-muted-foreground hover:text-brand transition">
@@ -86,7 +87,9 @@ export function Footer() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-border text-center text-sm text-muted-foreground">
-          © {CURRENT_YEAR} MyToysCare. All Rights Reserved.
+          <p className="text-orange-400">
+  © {CURRENT_YEAR} MyToysCare. All Rights Reserved.
+</p>
         </div>
       </div>
     </footer>

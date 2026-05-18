@@ -96,7 +96,7 @@ function StarInput({ value, onChange }: { value: number; onChange: (v: number) =
           onClick={() => onChange(n)}
           className="transition-transform active:scale-95 hover:scale-110"
         >
-          <Star className={`h-8 w-8 transition-colors ${n <= (hover || value) ? "fill-brand text-brand" : "text-muted-foreground/30"}`} />
+          <Star className={`h-8 w-8 transition-colors ${n <= (hover || value) ? "fill-orange-400 text-orange-400" : "text-slate-500"}`} />
         </button>
       ))}
     </div>
@@ -167,7 +167,7 @@ function ReviewCard({
       initial={review.isNew ? { opacity: 0, scale: 0.92, y: 12 } : false}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      className={`relative flex-shrink-0 w-[290px] sm:w-[320px] rounded-2xl border bg-gradient-card shadow-card flex flex-col select-none transition-all duration-200 ${
+      className={`relative flex-shrink-0 w-[290px] sm:w-[320px] rounded-2xl border border-slate-300/20 bg-slate-800/90 shadow-xl flex flex-col select-none transition-all duration-200 ${
         review.hidden && isAdmin
           ? "border-dashed border-border opacity-60"
           : "border-border hover:border-brand/30 hover:shadow-[0_8px_40px_-12px_oklch(0.74_0.18_55_/_0.25)]"
@@ -197,7 +197,7 @@ function ReviewCard({
               <div ref={menuRef} className="relative">
                 <button
                   onClick={(e) => { e.stopPropagation(); setMenuOpen((p) => !p); }}
-                  className="rounded-lg p-1 text-muted-foreground hover:text-foreground hover:bg-surface-elevated transition"
+                  className="rounded-lg p-1 text-slate-300 hover:text-white hover:bg-slate-700/70 transition"
                 >
                   <MoreVertical className="h-4 w-4" />
                 </button>
@@ -236,18 +236,18 @@ function ReviewCard({
         <div className="flex items-center gap-2">
           <div className="flex gap-0.5">
             {[1, 2, 3, 4, 5].map((n) => (
-              <Star key={n} className={`h-3.5 w-3.5 ${n <= review.stars ? "fill-[#FBBC04] text-[#FBBC04]" : "text-muted-foreground/20 fill-muted-foreground/10"}`} />
+              <Star key={n} className={`h-3.5 w-3.5 ${n <= review.stars ? "fill-[#FBBC04] text-[#FBBC04]" : "text-white/90/20 fill-muted-foreground/10"}`} />
             ))}
           </div>
-          <span className="text-[11px] text-muted-foreground">{relativeDate(review.date)}</span>
+          <span className="text-[11px] text-white/90">{relativeDate(review.date)}</span>
           {review.hidden && isAdmin && (
-            <span className="text-[10px] text-muted-foreground bg-surface-elevated rounded px-1.5 py-0.5">hidden</span>
+            <span className="text-[10px] text-white/90 bg-surface-elevated rounded px-1.5 py-0.5">hidden</span>
           )}
         </div>
 
         {/* Text */}
         <div className="flex-1">
-          <p className={`text-[13px] text-muted-foreground leading-relaxed ${!expanded && isLong ? "line-clamp-3" : ""}`}>
+          <p className={`text-[13px] text-white/90 leading-relaxed ${!expanded && isLong ? "line-clamp-3" : ""}`}>
             {review.text}
           </p>
           {isLong && (
@@ -368,7 +368,7 @@ function Carousel({ items, isAdmin, onEdit, onToggleHide, onDelete }: {
       <button
         onClick={() => scrollBy(-1)}
         aria-label="Previous review"
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-gradient-card shadow-card text-foreground hover:border-brand/50 hover:text-brand hover:scale-110 transition-all"
+        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-slate-600/40 bg-slate-800/90 shadow-xl text-white hover:border-orange-400/50 hover:text-orange-300 hover:scale-110 transition-all"
       >
         <ChevronLeft className="h-5 w-5" />
       </button>
@@ -617,8 +617,8 @@ export function Reviews() {
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold">
               Loved by <span className="text-gradient-brand">Indian Parents</span>
             </h2>
-            <div className="mt-7 inline-flex items-center gap-4 rounded-2xl border border-border bg-gradient-card px-6 py-4 shadow-card">
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-brand/15">
+            <div className="mt-7 inline-flex items-center gap-4 rounded-2xl border border-slate-700/60 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-800 px-6 py-4 shadow-[0_8px_30px_-10px_rgba(0,0,0,0.45)]">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-orange-500/20 border border-orange-400/20">
                 <GoogleLogo size={28} />
               </div>
               <div className="text-left">
@@ -646,10 +646,9 @@ export function Reviews() {
           <span className="text-sm">Loading reviews…</span>
         </div>
       ) : dbError ? (
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-md rounded-2xl border border-red-500/20 bg-red-500/5 px-5 py-4 text-center text-sm text-red-400">
-            Could not load reviews. Please check your Supabase setup.
-          </div>
+        <div className="mx-auto max-w-md rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4 text-center text-sm text-gray-500">
+  Reviews are currently unavailable.
+
         </div>
       ) : visible.length > 0 ? (
         <Carousel items={visible} isAdmin={isAdmin}

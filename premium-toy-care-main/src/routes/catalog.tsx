@@ -333,10 +333,10 @@ function Catalog() {
       <main className="pt-32 pb-20">
         <div className="container mx-auto px-4">
           <Reveal>
-            <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="text-center max-w-2xl mx-auto mb-10 text-white">
               <div className="text-xs uppercase tracking-[0.2em] text-brand font-semibold mb-4">Spare Parts</div>
               <h1 className="font-display text-4xl sm:text-5xl font-bold">
-                All <span className="text-gradient-brand">Spare Parts</span>
+                All <span className="text-orange-500">Spare Parts</span>
               </h1>
               <p className="mt-4 text-muted-foreground">Genuine parts in stock — order on WhatsApp for fastest dispatch.</p>
             </div>

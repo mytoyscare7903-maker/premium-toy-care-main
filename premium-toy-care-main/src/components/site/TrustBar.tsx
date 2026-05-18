@@ -31,7 +31,7 @@ export function TrustBar() {
             {promises.map(({ Icon, title, desc }) => (
               <div
                 key={title}
-                className="group relative flex items-start gap-4 rounded-2xl border border-border bg-white px-5 py-5 shadow-[0_2px_14px_-4px_oklch(0.02_0_0/0.08),0_1px_4px_-2px_oklch(0.02_0_0/0.04)] hover:shadow-[0_8px_32px_-8px_oklch(0.02_0_0/0.12),0_2px_8px_-4px_oklch(0.02_0_0/0.06)] hover:-translate-y-0.5 hover:border-brand/25 transition-all duration-300 overflow-hidden"
+               className="group relative flex items-start gap-4 rounded-3xl border border-white/10 bg-gradient-to-br from-orange-500/15 via-pink-500/10 to-purple-500/15 backdrop-blur-xl px-5 py-5 shadow-[0_10px_40px_-12px_rgba(0,0,0,0.25)] hover:scale-[1.03] hover:border-orange-300/30 transition-all duration-300 overflow-hidden"
               >
                 {/* Subtle top-left glow accent */}
                 <div className="absolute -top-6 -left-6 h-16 w-16 rounded-full bg-brand/10 blur-2xl pointer-events-none" />
@@ -52,12 +52,12 @@ export function TrustBar() {
             {badges.map(({ Icon, label }) => (
               <div
                 key={label}
-                className="group flex flex-col items-center text-center gap-2.5 rounded-2xl border border-border/70 bg-white px-3 py-4 shadow-sm hover:border-brand/25 hover:shadow-[0_4px_16px_-4px_oklch(0.02_0_0/0.10)] hover:-translate-y-0.5 transition-all duration-300"
+                className="group flex flex-col items-center text-center gap-2.5 rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 px-3 py-4 shadow-xl hover:scale-105 hover:border-orange-300/30 transition-all duration-300"
               >
                 <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand border border-brand/12 group-hover:from-brand/22 group-hover:to-brand/10 transition-colors">
                   <Icon className="h-5 w-5" />
                 </div>
-                <span className="text-xs font-medium text-muted-foreground leading-tight">{label}</span>
+                <span className="text-xs font-medium text-white/85 leading-tight">{label}</span>
               </div>
             ))}
           </div>
