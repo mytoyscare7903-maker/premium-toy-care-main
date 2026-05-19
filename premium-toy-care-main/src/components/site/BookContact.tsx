@@ -10,7 +10,7 @@ export function BookContact() {
   const book = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Name: ${name}%0APhone: ${phone}%0AProblem: ${msg}`;
-    window.open(`https://wa.me/917903913346?text=${text}`, "_blank");
+    window.open(`https://wa.me/916204594205?text=${text}`, "_blank");
   };
 
   const perks = [

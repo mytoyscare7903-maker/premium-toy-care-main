@@ -31,29 +31,29 @@ const ITEMS: TransformItem[] = [
   {
     beforeImg: yellowBeforeImg,  // BROKEN
     afterImg: yellowAfterImg,    // REPAIRED
-    label: "RC Car Full Repair",
+    label: "Mclearn Car Full Repair",
     tag: "Motor & Electronics",
     Icon: Zap,
-    desc: "Burnt motor, broken remote receiver and dead battery — fully repaired.",
-    whatsapp: "RC Car Repair",
+    desc: "Burnt Motherboard, wire disconnected and dead battery — fully repaired & deep dry cleaning.",
+    whatsapp: "Mclearn Car Repair",
   },
   {
     beforeImg: redJeepBeforeImg,
     afterImg: redJeepAfterImg,
-    label: "Ride-On Jeep Restore",
-    tag: "Body & Battery",
+    label: "Ride-On Jeep full repair",
+    tag: "full wiring & Deep cleaning",
     Icon: Car,
-    desc: "Cracked chassis, flat tyres, exhausted battery — fully restored.",
+    desc: "Complete rewiring, motherboard, gearbox, battery, switches & music board restoration & deep dry cleaning.",
     whatsapp: "Jeep Repair",
   },
   {
     beforeImg: bikeBeforeImg,
     afterImg: bikeAfterImg,
-    label: "Kids Scooter Revival",
+    label: "Kids Bmw Bike",
     tag: "Motor & Wiring",
     Icon: Settings2,
-    desc: "Faulty wiring and motor issues fixed completely.",
-    whatsapp: "Scooter Repair",
+    desc: "Faulty wiring,Accelerator,Motherboard,switches and motor issues fixed completely & deep dry cleaning.",
+    whatsapp: "Bike Repair",
   },
   {
     beforeImg: jeepBeforeImg,
@@ -98,7 +98,7 @@ function SliderCard({ item, delay }: { item: TransformItem; delay: number }) {
     window.addEventListener("mouseup", up);
   };
 
-  const waLink = `https://wa.me/917903913346?text=Hi, I need help with ${encodeURIComponent(
+  const waLink = `https://wa.me/916204594205?text=Hi, I need help with ${encodeURIComponent(
     item.whatsapp
   )}`;
 
@@ -187,7 +187,7 @@ export function BeforeAfter() {
             See the <span className="text-brand">Transformation</span>
           </h2>
           <p className="text-muted-foreground mt-3">
-            Drag to compare broken vs repaired toys
+            Drag to compare Unrepair vs repaired toys
           </p>
         </div>
 

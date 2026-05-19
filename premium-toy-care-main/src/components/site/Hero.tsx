@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Star, ShieldCheck, Truck, Info, Wrench, Package, CalendarClock, HelpCircle, MessageSquare, MessageCircle } from "lucide-react";
-import heroImg from "@/assets/hero-toys-repair.png";
+import heroImg from "@/assets/workshop-banner.png";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 
@@ -18,7 +18,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative pt-32 pb-20 overflow-hidden bg-gradient-hero">
+    <section id="home" className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-white via-orange-50 to-gray-100">
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-1/4 h-96 w-96 rounded-full bg-brand/10 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-brand-glow/10 blur-3xl" />
@@ -43,7 +43,7 @@ export function Hero() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="https://wa.me/917903913346" target="_blank" rel="noopener"
+            <a href="https://wa.me/916204594205" target="_blank" rel="noopener"
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-glow hover:scale-105 transition-transform">
               Book Repair <ArrowRight className="h-4 w-4" />
             </a>
@@ -67,7 +67,7 @@ export function Hero() {
               <a
                 key={label}
                 href={href}
-                className="group flex flex-col items-center justify-center gap-1.5 rounded-xl border border-border bg-surface/50 backdrop-blur-md px-2 py-3 text-center hover:border-brand/60 hover:bg-surface-elevated hover:-translate-y-0.5 transition-all"
+                className="group flex flex-col items-center justify-center gap-1.5 rounded-xl border border-orange-200 bg-gradient-to-br from-orange-100 via-white to-amber-100 shadow-md backdrop-blur-md px-2 py-3 text-center hover:border-orange-400 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand/15 text-brand group-hover:bg-brand group-hover:text-brand-foreground transition-colors">
                   <Icon className="h-4 w-4" />
@@ -97,7 +97,7 @@ export function Hero() {
         >
           <div className="relative rounded-3xl overflow-hidden shadow-elegant border border-border">
             <img src={heroImg} alt="Toys Repair workshop with ride-on car, bike and RC truck surrounded by tools" className="w-full h-auto" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+         
           </div>
 
           {/* Floating badges */}

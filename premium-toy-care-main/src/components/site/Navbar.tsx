@@ -34,9 +34,9 @@ export function Navbar() {
   const isLightNav = scrolled && !isCatalog;
 
   const navContainerClass = isLightNav
-    ? "bg-white/92 backdrop-blur-md shadow-sm border-slate-200/70"
-    : "bg-black/18 backdrop-blur-md border-white/12";
-
+  ? "bg-white/95 backdrop-blur-xl shadow-lg border border-orange-100"
+  : "bg-slate-950/85 backdrop-blur-xl border border-white/10 shadow-2xl";
+  
   const linkClass = isLightNav
     ? "px-3 py-2 text-sm font-medium text-slate-600 hover:text-brand transition-colors rounded-lg hover:bg-slate-100"
     : "px-3 py-2 text-sm font-medium text-white/80 hover:text-white transition-colors rounded-lg hover:bg-white/10";
@@ -68,7 +68,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          <ul className="hidden lg:flex items-center gap-1">
+          <ul className="grid grid-cols-2 gap-0.2">
             {links.map((l) => (
               <li key={l.label}>
                 {l.hash && location.pathname === l.to ? (
@@ -118,7 +118,7 @@ export function Navbar() {
                   <a
                     href={l.hash ? `${l.to}${l.hash}` : l.to}
                     onClick={() => setOpen(false)}
-                    className={`block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors ${
+                    className={`flex items-center justify-center text-center px-3 py-3 text-sm font-semibold rounded-xl transition-all ${
                       isLightNav
                         ? "text-slate-600 hover:text-brand hover:bg-slate-100"
                         : "text-white/80 hover:text-white hover:bg-white/10"

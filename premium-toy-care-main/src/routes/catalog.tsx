@@ -49,7 +49,7 @@ function waEnquiry(name: string, description: string, imgSrc: string): string {
     "Product Link:",
     `${origin}/catalog`,
   ].join("\n");
-  return `https://wa.me/917903913346?text=${encodeURIComponent(msg)}`;
+  return `https://wa.me/916204594205?text=${encodeURIComponent(msg)}`;
 }
 
 const diyItems: DiyItem[] = [
@@ -206,20 +206,27 @@ function RequestPartForm() {
     ]
       .filter(Boolean)
       .join("\n");
-    window.open(`https://wa.me/917903913346?text=${encodeURIComponent(msg)}`, "_blank");
+    window.open(`https://wa.me/916204594205?text=${encodeURIComponent(msg)}`, "_blank");
     setSent(true);
   };
 
   return (
     <Reveal>
-      <div id="request-part" className="mt-20 max-w-xl mx-auto rounded-2xl border border-brand/30 bg-gradient-card shadow-card p-8">
+      <div
+  id="request-part"
+  className="mt-20 max-w-xl mx-auto rounded-3xl border border-orange-200/60 bg-white/95 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.12)] p-8"
+>
         <div className="flex items-center gap-3 mb-6">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-brand shadow-glow">
-            <PackageSearch className="h-5 w-5 text-brand-foreground" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 shadow-[0_6px_20px_rgba(249,115,22,0.25)]">
+           <PackageSearch className="h-5 w-5 text-white" />
           </div>
           <div>
-            <h2 className="font-display text-lg font-bold">Can't find your part?</h2>
-            <p className="text-xs text-muted-foreground">Tell us what you need — we'll source it for you.</p>
+            <h2 className="font-display text-xl font-bold text-slate-900">
+  Can't find your part?
+</h2>
+           <p className="text-sm text-slate-800 font-medium">
+  Tell us what you need — we'll source it for you.
+</p>
           </div>
         </div>
 
@@ -239,17 +246,17 @@ function RequestPartForm() {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-muted-foreground">Your Name *</label>
+                <label className="text-sm font-semibold text-slate-900">Your Name *</label>
                 <input
                   required
                   value={form.name}
                   onChange={set("name")}
                   placeholder="Ravi Kumar"
-                  className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                  className="rounded-xl border border-white/10 bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-muted-foreground">WhatsApp Number</label>
+                <label className="text-sm font-semibold text-slate-900">WhatsApp Number</label>
                 <input
                   value={form.phone}
                   onChange={set("phone")}
@@ -259,7 +266,7 @@ function RequestPartForm() {
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-muted-foreground">Toy Model / Brand (optional)</label>
+              <label className="text-sm font-semibold text-slate-900">Toy Model / Brand (optional)</label>
               <input
                 value={form.model}
                 onChange={set("model")}
@@ -268,7 +275,7 @@ function RequestPartForm() {
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-medium text-muted-foreground">Part You Need *</label>
+              <label className="text-sm font-semibold text-slate-900">Part You Need *</label>
               <textarea
                 required
                 rows={3}
@@ -280,7 +287,7 @@ function RequestPartForm() {
             </div>
             <button
               type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-glow hover:scale-[1.02] transition-transform"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 px-6 py-3 text-sm font-semibold text-brand-foreground shadow-glow hover:scale-[1.02] transition-transform"
             >
               <Send className="h-4 w-4" /> Send Request on WhatsApp
             </button>
@@ -390,8 +397,12 @@ function Catalog() {
                   </div>
                 </div>
                 <div className="flex-1 px-1 pt-3">
-                  <h3 className="text-sm font-semibold leading-tight">{p.name}</h3>
-                  <div className="mt-1 text-xs font-medium text-brand">In Stock</div>
+                  <h3 className="text-sm font-bold leading-tight text-white drop-shadow-md">
+  {p.name}
+</h3>
+                  <div className="mt-1 text-xs font-semibold text-orange-400">
+  In Stock
+</div>
                 </div>
                 <div className="mt-3 flex gap-2">
                   <button
@@ -454,8 +465,12 @@ function Catalog() {
                     </div>
                   </div>
                   <div className="flex-1 px-1 pt-2 pb-1">
-                    <h3 className="text-xs font-semibold leading-tight">{item.name}</h3>
-                    <div className="mt-0.5 text-[10px] font-medium text-brand">Available</div>
+                    <h3 className="text-xs font-bold leading-tight text-white drop-shadow-md">
+  {item.name}
+</h3>
+                    <div className="mt-0.5 text-[10px] font-semibold text-orange-400">
+  Available
+</div>
                   </div>
                   <div className="mt-2 flex gap-1.5">
                     <button

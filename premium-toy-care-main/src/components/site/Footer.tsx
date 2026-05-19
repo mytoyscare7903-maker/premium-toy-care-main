@@ -36,8 +36,8 @@ export function Footer() {
           <div>
             <h4 className="font-display font-semibold text-brand mb-4">Contact Us</h4>
             <ul className="space-y-3 text-sm">
-              <li><a href="tel:+917903913346" className="flex items-start gap-2 text-gray-300 hover:text-brand transition">
-                <Phone className="h-4 w-4 mt-0.5 shrink-0" /> +91 7903913346
+              <li><a href="tel:+916204594205" className="flex items-start gap-2 text-gray-300 hover:text-brand transition">
+                <Phone className="h-4 w-4 mt-0.5 shrink-0" /> +91 6204594205
               </a></li>
               <li><a href="https://maps.google.com/?q=Ramamurthy+Nagar+Bengaluru" target="_blank" rel="noopener" className="flex items-start gap-2 text-muted-foreground hover:text-brand transition">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0" /> Ramamurthy Nagar, Bengaluru 560016

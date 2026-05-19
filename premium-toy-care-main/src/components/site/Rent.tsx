@@ -1,13 +1,13 @@
 import { MessageCircle, AlertCircle, Clock } from "lucide-react";
-import bike from "@/assets/rent-bike.jpg";
-import rc from "@/assets/rent-rc.jpg";
-import scooter from "@/assets/rent-scooter.jpg";
+import bike from "@/assets/rent-bike.png";
+import car from "@/assets/rent-car.png";
+import jeep from "@/assets/rent-jeep.png";
 import { Reveal } from "./Reveal";
 
 const items = [
-  { img: bike,    title: "Kids Electric Bike", price: "₹499", text: "Kids%20Electric%20Bike",  tag: "Most Popular" },
-  { img: rc,      title: "RC Racing Car",       price: "₹299", text: "RC%20Racing%20Car",        tag: "Fun & Fast" },
-  { img: scooter, title: "Baby Scooter",        price: "₹399", text: "Baby%20Scooter",           tag: "Easy Ride" },
+  { img: bike,    title: "Kids Electric Bike", price: "₹99", text: "Kids%20Electric%20Bike",  tag: "Most Popular" },
+  { img: car,      title: "Kids rideon Car",       price: "₹99", text: "RC%20Racing%20Car",        tag: "Fun & Fast" },
+  { img: jeep, title: "kid's jeep",        price: "₹99", text: "Baby%20Scooter",           tag: "Easy Ride" },
 ];
 
 export function Rent() {

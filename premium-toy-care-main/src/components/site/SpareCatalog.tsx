@@ -146,7 +146,7 @@ export function SpareCatalog() {
       </div>
 
       <div className="text-center mt-10">
-        <Link to="/catalog" className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-glow hover:scale-105 transition-transform">
+        <Link to="/catalog" className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-[0_0_25px_rgba(249,115,22,0.35)] hover:scale-105 transition-transform">
           Explore Full Catalog <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

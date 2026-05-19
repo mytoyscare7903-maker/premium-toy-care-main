@@ -5,7 +5,7 @@ const services = [
   {
     Icon: Wrench,
     title: "Toy Repair",
-    desc: "Full repair for ride-on cars, RC toys, bikes and scooters & hover board of all brands.",
+    desc: "Full repair for ride-on cars & jeep , RC toys, bikes and scooters & hover board of all brands.",
     accent: "from-orange-500/18 to-amber-400/10",
     iconBg: "from-orange-500/20 to-amber-400/12",
     iconBorder: "border-orange-400/20",

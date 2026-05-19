@@ -15,7 +15,7 @@ export function WhatsAppFloat() {
         <PhoneCall className="h-5 w-5 sm:h-6 sm:w-6" />
       </a>
       <a
-        href={`https://wa.me/917903913346?text=${whatsappMessage}`}
+        href={`https://wa.me/916204594205?text=${whatsappMessage}`}
         target="_blank"
         rel="noopener"
         aria-label="Chat on WhatsApp"
