@@ -92,27 +92,32 @@ export function BookContact() {
             <div className="flex-1 min-h-[340px]">
               <iframe
                 title="MyToysCare Location"
-                src="https://maps.google.com/maps?q=Ramamurthy+Nagar+Bengaluru&output=embed"
+                src="https://maps.google.com/maps?q=Rammurthy+Nagar+near+Holy+Family+Church+St+Anthony+School+Road+7th+Cross+Bangalore+560016&output=embed"
                 className="w-full h-full min-h-[340px] grayscale-[20%]"
                 loading="lazy"
               />
             </div>
             {/* Address strip */}
-            <div className="flex items-center gap-3 px-5 py-4 border-t border-border bg-white">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/12 text-brand border border-brand/15">
-                <MapPin className="h-4 w-4" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">MyToysCare Workshop</p>
-                <a
-                  href="https://maps.google.com/?q=Ramamurthy+Nagar+Bengaluru"
-                  target="_blank" rel="noopener"
-                  className="text-xs text-muted-foreground hover:text-brand transition"
-                >
-                  Ramamurthy Nagar, Bengaluru 560016 →
-                </a>
-              </div>
-            </div>
+<div className="flex items-center gap-3 px-5 py-4 border-t border-border bg-white">
+  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand/12 text-brand border border-brand/15">
+    <MapPin className="h-4 w-4" />
+  </div>
+
+  <div>
+    <p className="text-sm font-semibold text-foreground">
+      MyToysCare Workshop
+    </p>
+
+    <a
+      href="https://maps.google.com/?q=Rammurthy+Nagar+near+Holy+Family+Church+St+Anthony+School+Road+7th+Cross+Bangalore+560016"
+      target="_blank"
+      rel="noopener"
+      className="text-xs text-muted-foreground hover:text-brand transition"
+    >
+      Rammurthy Nagar near Holy Family Church, St. Anthony School Road, 7th Cross, Bangalore - 560016 →
+    </a>
+  </div>
+</div>
           </div>
         </Reveal>
 
