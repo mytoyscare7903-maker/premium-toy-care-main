@@ -8,12 +8,13 @@ export function WhatsAppFloat() {
   return (
     <div className="fixed bottom-6 right-5 z-50 flex flex-col items-end gap-3 sm:right-6">
       <a
-        href="#contact"
-        aria-label="Go to contact form"
-        className="group flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elegant transition-transform hover:scale-110 sm:h-14 sm:w-14"
-      >
-        <PhoneCall className="h-5 w-5 sm:h-6 sm:w-6" />
-      </a>
+  href="tel:+916204594205"
+  aria-label="Call MyToysCare"
+  className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-elegant transition-transform hover:scale-110 sm:h-14 sm:w-14 relative z-[9999]"
+  style={{ pointerEvents: "auto" }}
+>
+  <PhoneCall className="h-5 w-5 sm:h-6 sm:w-6" />
+</a>
       <a
         href={`https://wa.me/916204594205?text=${whatsappMessage}`}
         target="_blank"
