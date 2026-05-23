@@ -7,6 +7,7 @@ import { Hero } from "@/components/site/Hero";
 import { TrustBar } from "@/components/site/TrustBar";
 import { About } from "@/components/site/About";
 import { Services } from "@/components/site/Services";
+import { Assembly } from "@/components/site/Assembly";
 import { BeforeAfter } from "@/components/site/BeforeAfter";
 import { SpareCatalog } from "@/components/site/SpareCatalog";
 import { Rent } from "@/components/site/Rent";
@@ -31,6 +32,7 @@ function Index() {
         <TrustBar />
         <About />
         <Services />
+        <Assembly />
         <BeforeAfter />
         <SpareCatalog />
         <Rent />

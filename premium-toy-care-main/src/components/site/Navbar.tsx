@@ -7,6 +7,7 @@ const links = [
   { to: "/", label: "Home", hash: "#home" },
   { to: "/", label: "About", hash: "#about" },
   { to: "/", label: "Services", hash: "#services" },
+  { to: "/", label: "Assembly", hash: "#assembly" },
   { to: "/catalog", label: "Spare Parts" },
   { to: "/catalog", label: "DIY Projects", hash: "#diy-projects" },
   { to: "/", label: "Rent", hash: "#rent" },
