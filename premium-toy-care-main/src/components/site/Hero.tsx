@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Star, ShieldCheck, Truck, Info, Wrench, Package, CalendarClock, HelpCircle, MessageSquare, MessageCircle } from "lucide-react";
+import { ArrowRight, Star, ShieldCheck, Truck, Info, Wrench, Package, CalendarClock, HelpCircle, MessageSquare, MessageCircle, Hammer } from "lucide-react";
 import heroImg from "@/assets/workshop-banner.png";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
@@ -54,10 +54,11 @@ export function Hero() {
           </div>
 
           {/* Quick navigation tiles */}
-          <div className="mt-8 grid grid-cols-4 sm:grid-cols-7 gap-2.5">
+          <div className="mt-8 grid grid-cols-4 sm:grid-cols-8 gap-2.5">
             {[
               { href: "#about", label: "About", Icon: Info },
               { href: "#services", label: "Services", Icon: Wrench },
+              { href: "#assembly", label: "Assembly", Icon: Hammer },
               { href: "/catalog", label: "Catalog", Icon: Package },
               { href: "#rent", label: "Rent", Icon: CalendarClock },
               { href: "#reviews", label: "Reviews", Icon: MessageCircle },
