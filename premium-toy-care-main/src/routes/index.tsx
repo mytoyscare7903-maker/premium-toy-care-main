@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
@@ -14,18 +15,14 @@ import { Reviews } from "@/components/site/Reviews";
 import { BookContact } from "@/components/site/BookContact";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "MyToysCare — Premium Toy Repair & Rental in Bangalore" },
-      { name: "description", content: "Expert kids toy repair, genuine spare parts and rentals in Bangalore. Ride-on cars, RC vehicles, scooters and bikes. Doorstep pickup. 4.9★ rated." },
-      { property: "og:title", content: "MyToysCare — Premium Toy Repair & Rental" },
-      { property: "og:description", content: "Expert kids toy repair and rental service in Bangalore. 10+ years experience, genuine parts, doorstep pickup." },
-    ],
-  }),
   component: Index,
 });
 
 function Index() {
+  useEffect(() => {
+    document.title = "MyToysCare — Premium Toy Repair & Rental in Bangalore";
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />

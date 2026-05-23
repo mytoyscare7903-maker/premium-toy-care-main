@@ -7,14 +7,6 @@ import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
 import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/catalog")({
-  head: () => ({
-    meta: [
-      { title: "Spare Parts Catalog — MyToysCare" },
-      { name: "description", content: "Browse our genuine spare parts catalog: motherboards, remotes, batteries, gearboxes, music boards and more for kids' toys." },
-      { property: "og:title", content: "Spare Parts Catalog — MyToysCare" },
-      { property: "og:description", content: "Genuine spare parts for kids ride-on toys, RC cars, bikes and scooters." },
-    ],
-  }),
   component: Catalog,
 });
 
