@@ -55,21 +55,21 @@ export function Navbar() {
         <nav
           className={`flex items-center justify-between rounded-2xl border px-4 py-3 transition-all duration-300 ${navContainerClass}`}
         >
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 shrink-0">
             <img
               src="/logo.png"
               alt="MyToysCare logo"
               width={52}
               height={52}
               onError={(e) => { e.currentTarget.src = logoFallback; }}
-              className="h-13 w-13 object-contain drop-shadow-[0_0_16px_rgba(255,122,26,0.65)] group-hover:drop-shadow-[0_0_24px_rgba(255,122,26,0.90)] group-hover:scale-110 transition-all duration-300"
+              className="h-10 w-10 sm:h-12 sm:w-12 object-contain drop-shadow-[0_0_16px_rgba(255,122,26,0.65)] group-hover:drop-shadow-[0_0_24px_rgba(255,122,26,0.90)] group-hover:scale-110 transition-all duration-300"
             />
             <span className={`font-display text-lg font-bold tracking-tight transition-colors duration-300 ${logoTextClass}`}>
               MyToys<span className="text-gradient-brand">Care</span>
             </span>
           </Link>
 
-          <ul className="grid grid-cols-2 gap-0.2">
+          <ul className="hidden lg:flex items-center gap-1">
             {links.map((l) => (
               <li key={l.label}>
                 {l.hash && location.pathname === l.to ? (
@@ -113,7 +113,7 @@ export function Navbar() {
     ? "bg-white shadow-elegant border border-slate-200/60"
     : "bg-black/90 backdrop-blur-xl border border-white/10 shadow-2xl"
 }`}>
-            <ul className="flex flex-col gap-1">
+            <ul className="flex flex-col gap-2 max-h-[70vh] overflow-y-auto">
               {links.map((l) => (
                 <li key={l.label}>
                   <a
