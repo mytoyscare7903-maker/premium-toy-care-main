@@ -12,8 +12,8 @@ export type DbReview = {
   image_url?: string;
 };
 
-const supabaseUrl = "https://oflpmvdoctpefatynrto.supabase.co";
-const supabaseAnonKey = "sb_publishable_dLyKzJkcdJXQzcdbdiIjiA_Z0Vm7Muy";
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
 
 // Patch WebSocket for Node.js 20 (no native WebSocket) used by TanStack Start SSR
 if (typeof globalThis.WebSocket === "undefined") {

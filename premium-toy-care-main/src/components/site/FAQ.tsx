@@ -5,19 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import faqFamily from "@/assets/faq-family.png";
 
 const faqs = [
-
   { q: "What if my toy is not working?", a: "Don't worry. Our expert technicians will diagnose the issue and provide a quick, reliable repair to get it running like new." },
   { q: "Do you use genuine parts?", a: "Yes — we use only genuine, high-quality spare parts to ensure safe, reliable, and long-lasting performance for every repair." },
-  { q: "How much time is required?", a: "Repair time depends on the issue, but most repairs are completed within 1 day." },
+  { q: "How much time is required?", a: "Repair time depends on the issue, but most repairs are completed within 1–3 days." },
   { q: "Do you offer doorstep pickup and drop?", a: "Yes, we offer doorstep pickup and drop. Transportation charges are included in the service cost." },
   { q: "Is there any warranty after repair?", a: "Yes, we offer a limited warranty on repairs. Warranty can be claimed by visiting our workshop." },
-
-  { q: "What if my toy is not working?",          a: "Don't worry. Our expert technicians will diagnose the issue and provide a quick, reliable repair to get it running like new." },
-  { q: "Do you use genuine parts?",               a: "Yes — we use only genuine, high-quality spare parts to ensure safe, reliable, and long-lasting performance for every repair." },
-  { q: "How much time is required?",              a: "Repair time depends on the issue, but most repairs are completed within 1–3 days." },
-  { q: "Do you offer doorstep pickup and drop?",  a: "Yes, we offer doorstep pickup and drop. Transportation charges are included in the service cost." },
-  { q: "Is there any warranty after repair?",     a: "Yes, we offer a limited warranty on repairs. Warranty can be claimed by visiting our workshop." },
-
 ];
 
 export function FAQ() {
