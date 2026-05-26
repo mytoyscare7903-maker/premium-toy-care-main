@@ -206,7 +206,7 @@ function RequestPartForm() {
     <Reveal>
       <div
   id="request-part"
-  className="mt-20 max-w-xl mx-auto rounded-3xl border border-orange-200/60 bg-white/95 backdrop-blur-md shadow-[0_10px_40px_rgba(0,0,0,0.12)] p-8"
+  className="mt-20 max-w-xl mx-auto rounded-3xl border border-orange-200/60 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.12)] p-8"
 >
         <div className="flex items-center gap-3 mb-6">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-orange-500 to-amber-500 shadow-[0_6px_20px_rgba(249,115,22,0.25)]">
@@ -244,7 +244,7 @@ function RequestPartForm() {
                   value={form.name}
                   onChange={set("name")}
                   placeholder="shiva"
-                  className="rounded-xl border border-white/10 bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -253,7 +253,7 @@ function RequestPartForm() {
                   value={form.phone}
                   onChange={set("phone")}
                   placeholder="+91 98765 43210"
-                  className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                  className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 />
               </div>
             </div>
@@ -263,7 +263,7 @@ function RequestPartForm() {
                 value={form.model}
                 onChange={set("model")}
                 placeholder="e.g. BMW X5 ride-on, Lamborghini 12V"
-                className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-400"
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -274,7 +274,7 @@ function RequestPartForm() {
                 value={form.part}
                 onChange={set("part")}
                 placeholder="e.g. 12V motherboard for remote-controlled Jeep, steering motor for bike..."
-                className="rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand resize-none"
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
               />
             </div>
             <button
