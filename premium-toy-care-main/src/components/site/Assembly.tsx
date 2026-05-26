@@ -2,13 +2,13 @@ import { Bike, Car, Truck, Gauge, Zap, MessageCircle, PackageOpen, CheckCircle2,
 import { Reveal } from "./Reveal";
 import { motion } from "framer-motion";
 
-import bikeAfterImg from "@/assets/bike_assemble.jpeg";
-import carAfterImg from "@/assets/car_assemble.jpeg";
-import jeepAfterImg from "@/assets/jeep_assemble.jpeg";
+import bikeAfterImg from "@/assets/rent-bike.png";
+import carAfterImg from "@/assets/rent-car.png";
+import jeepAfterImg from "@/assets/rent-jeep.png";
 
-import bikeBeforeImg from "@/assets/bike_deassemble.jpeg";
-import carBeforeImg from "@/assets/car_deassemble.jpeg";
-import jeepBeforeImg from "@/assets/jeep_deassemble.jpeg";
+import bikeBeforeImg from "@/assets/bike_before.jpeg";
+import carBeforeImg from "@/assets/yellow_before.jpeg";
+import jeepBeforeImg from "@/assets/jeep_before.jpeg";
 
 /* ─── Service Cards Data ─────────────────────────────────── */
 const ASSEMBLY_SERVICES = [
@@ -134,11 +134,10 @@ function ShowcaseCard({ item, index }: { item: typeof SHOWCASE[0]; index: number
         {/* BEFORE (top half) */}
         <div className="relative h-48 overflow-hidden">
           <img
-  src={item.beforeImg}
-  alt={`${item.label} before assembly`}
-  className="w-full h-full object-cover object-center transition-all duration-500 scale-100 group-hover:scale-105"
-  style={{ objectPosition: "50% " }}
-/>
+            src={item.beforeImg}
+            alt={`${item.label} before assembly`}
+            className="w-full h-full object-cover brightness-75 group-hover:brightness-60 transition-all duration-500 scale-100 group-hover:scale-105"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-xl bg-black/65 backdrop-blur-sm border border-white/10 px-3 py-1.5 text-[11px] font-bold text-amber-300 tracking-wide">
             <PackageOpen className="h-3.5 w-3.5" />
