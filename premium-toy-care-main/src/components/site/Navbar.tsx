@@ -69,7 +69,7 @@ export function Navbar() {
             </span>
           </Link>
 
-          <ul className="grid grid-cols-2 gap-0.2">
+          <ul className="hidden lg:flex items-center gap-0.5">
             {links.map((l) => (
               <li key={l.label}>
                 {l.hash && location.pathname === l.to ? (
