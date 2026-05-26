@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppFloat } from "@/components/site/WhatsAppFloat";
+import { AssemblyFloat } from "@/components/site/AssemblyFloat";
 import { Hero } from "@/components/site/Hero";
 import { TrustBar } from "@/components/site/TrustBar";
 import { About } from "@/components/site/About";
@@ -42,6 +43,7 @@ function Index() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <AssemblyFloat />
     </div>
   );
 }
