@@ -106,7 +106,7 @@ export function SpareCatalog() {
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold">
               Genuine <span className="text-gradient-brand">Spare Parts</span> Catalog
             </h2>
-            <p className="mt-4 text-slate-800 font-semibold text-base">
+            <p className="mt-4 text-slate-300 font-semibold text-base">
   Original parts for motherboards, remotes, batteries, gearboxes and more.
 </p>
           </div>
