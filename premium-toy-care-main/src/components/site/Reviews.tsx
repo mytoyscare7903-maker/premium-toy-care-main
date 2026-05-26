@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Star, Edit2, EyeOff, Eye, Trash2, Lock, X, Check, Shield, MoreVertical, ExternalLink, Loader2, ChevronLeft, ChevronRight, ImagePlus } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "../../lib/supabase";
+import { supabase, supabaseConfigured } from "../../lib/supabase";
 import type { DbReview } from "../../lib/supabase";
 
 /* ─── Image compression ──────────────────────────────────────── */
@@ -456,6 +456,12 @@ export function Reviews() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    if (!supabaseConfigured) {
+      setDbError("Supabase not configured");
+      setLoading(false);
+      return;
+    }
+
     // Initial fetch — load ALL rows (admin may need hidden ones)
     supabase
       .from("reviews")
@@ -468,38 +474,48 @@ export function Reviews() {
           setReviews((data ?? []) as Review[]);
         }
         setLoading(false);
+      })
+      .catch(() => {
+        setDbError("Failed to load reviews");
+        setLoading(false);
       });
 
     // Realtime: any INSERT / UPDATE / DELETE syncs instantly
-    const channel = supabase
-      .channel("reviews-realtime")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "reviews" },
-        (payload) => {
-          if (payload.eventType === "INSERT") {
-            setReviews((prev) => {
-              if (prev.find((r) => r.id === (payload.new as DbReview).id)) return prev;
-              return [{ ...(payload.new as DbReview), isNew: true }, ...prev];
-            });
-            // Clear isNew flag after animation
-            setTimeout(() => {
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    try {
+      channel = supabase
+        .channel("reviews-realtime")
+        .on(
+          "postgres_changes",
+          { event: "*", schema: "public", table: "reviews" },
+          (payload) => {
+            if (payload.eventType === "INSERT") {
+              setReviews((prev) => {
+                if (prev.find((r) => r.id === (payload.new as DbReview).id)) return prev;
+                return [{ ...(payload.new as DbReview), isNew: true }, ...prev];
+              });
+              setTimeout(() => {
+                setReviews((prev) =>
+                  prev.map((r) => r.id === (payload.new as DbReview).id ? { ...r, isNew: false } : r)
+                );
+              }, 3000);
+            } else if (payload.eventType === "UPDATE") {
               setReviews((prev) =>
-                prev.map((r) => r.id === (payload.new as DbReview).id ? { ...r, isNew: false } : r)
+                prev.map((r) => r.id === (payload.new as DbReview).id ? { ...r, ...(payload.new as DbReview) } : r)
               );
-            }, 3000);
-          } else if (payload.eventType === "UPDATE") {
-            setReviews((prev) =>
-              prev.map((r) => r.id === (payload.new as DbReview).id ? { ...r, ...(payload.new as DbReview) } : r)
-            );
-          } else if (payload.eventType === "DELETE") {
-            setReviews((prev) => prev.filter((r) => r.id !== (payload.old as DbReview).id));
+            } else if (payload.eventType === "DELETE") {
+              setReviews((prev) => prev.filter((r) => r.id !== (payload.old as DbReview).id));
+            }
           }
-        }
-      )
-      .subscribe();
+        )
+        .subscribe();
+    } catch {
+      // Realtime failed silently — reviews still loaded via fetch above
+    }
 
-    return () => { supabase.removeChannel(channel); };
+    return () => {
+      if (channel) supabase.removeChannel(channel);
+    };
   }, []);
 
   const visible = reviews.filter((r) => !r.hidden || isAdmin);
