@@ -132,11 +132,11 @@ function ShowcaseCard({ item, index }: { item: typeof SHOWCASE[0]; index: number
       <div className="group relative rounded-3xl overflow-hidden border border-border shadow-[0_4px_24px_-8px_oklch(0.02_0_0/0.15)] hover:shadow-[0_16px_48px_-12px_oklch(0.02_0_0/0.22)] transition-all duration-500 hover:-translate-y-1.5 bg-slate-900">
 
         {/* BEFORE (top half) */}
-        <div className="relative h-48 overflow-hidden">
+        <div className="relative h-52 overflow-hidden bg-slate-950 flex items-center justify-center">
           <img
             src={item.beforeImg}
             alt={`${item.label} before assembly`}
-            className="w-full h-full object-cover brightness-75 group-hover:brightness-60 transition-all duration-500 scale-100 group-hover:scale-105"
+            className="w-full h-full object-contain brightness-80 group-hover:brightness-70 transition-all duration-500 p-2"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/80" />
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-xl bg-black/65 backdrop-blur-sm border border-white/10 px-3 py-1.5 text-[11px] font-bold text-amber-300 tracking-wide">
@@ -155,11 +155,11 @@ function ShowcaseCard({ item, index }: { item: typeof SHOWCASE[0]; index: number
         </div>
 
         {/* AFTER (bottom half) */}
-        <div className="relative h-52 overflow-hidden">
+        <div className="relative h-56 overflow-hidden bg-slate-900">
           <img
             src={item.afterImg}
             alt={`${item.label} after assembly`}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent" />
           <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-xl bg-emerald-500/85 backdrop-blur-sm px-3 py-1.5 text-[11px] font-bold text-white tracking-wide">
