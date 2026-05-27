@@ -674,7 +674,7 @@ export function Reviews() {
           <Loader2 className="h-5 w-5 animate-spin" />
           <span className="text-sm">Loading reviews…</span>
         </div>
-      ) : (dbError ? FALLBACK_REVIEWS : visible).length > 0 ? (
+      ) : visible.length > 0 || dbError ? (
         <Carousel items={dbError ? FALLBACK_REVIEWS : visible} isAdmin={isAdmin}
           onEdit={handleEdit} onToggleHide={handleToggleHide} onDelete={handleDelete} />
       ) : (
