@@ -2,13 +2,13 @@ import { Bike, Car, Truck, Gauge, Zap, MessageCircle, PackageOpen, CheckCircle2,
 import { Reveal } from "./Reveal";
 import { motion } from "framer-motion";
 
-import bikeAfterImg from "@/assets/rent-bike.png";
-import carAfterImg from "@/assets/rent-car.png";
-import jeepAfterImg from "@/assets/rent-jeep.png";
+import bikeAfterImg from "@/assets/bike_assemble.jpeg";
+import carAfterImg from "@/assets/car_assemble.jpeg";
+import jeepAfterImg from "@/assets/jeep_assemble.jpeg";
 
-import bikeBeforeImg from "@/assets/bike_before.jpeg";
-import carBeforeImg from "@/assets/yellow_before.jpeg";
-import jeepBeforeImg from "@/assets/jeep_before.jpeg";
+import bikeBeforeImg from "@/assets/bike_deassemble.jpeg";
+import carBeforeImg from "@/assets/car_deassemble.jpeg";
+import jeepBeforeImg from "@/assets/jeep_deassemble.jpeg";
 
 /* ─── Service Cards Data ─────────────────────────────────── */
 const ASSEMBLY_SERVICES = [
